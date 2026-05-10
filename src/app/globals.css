@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FAFAFA;
+  --foreground: #1A1A1A;
+  --primary: #1A1A1A;
+  --primary-foreground: #FAFAFA;
+  --secondary: #E5E0D8;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F5F5F5;
+  --muted-foreground: #666666;
+  --accent: #D4B895;
+  --accent-foreground: #1A1A1A;
+  --hero-bg: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=2000');
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #FAFAFA;
+  --primary: #FAFAFA;
+  --primary-foreground: #121212;
+  --secondary: #2A2A2A;
+  --secondary-foreground: #FAFAFA;
+  --muted: #1E1E1E;
+  --muted-foreground: #A0A0A0;
+  --accent: #D4B895;
+  --accent-foreground: #121212;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Custom Utilities */
+.text-balance {
+  text-wrap: balance;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.dark .glass {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* View Transition API styles */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+  animation: reveal 0.7s ease-in-out;
+  clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+}
+
+@keyframes reveal {
+  from {
+    clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+  }
+  to {
+    clip-path: circle(125% at var(--x, 50%) var(--y, 50%));
+  }
+}
+
+/* Specific blur effect requested by user */
+.hero-blur-overlay {
+  /* Transition removed to avoid conflict with View Transition API */
+}
+
+.dark .hero-blur-overlay {
+  background-color: rgba(0, 0, 0, 0.85);
+}
