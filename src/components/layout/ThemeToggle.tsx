@@ -66,7 +66,7 @@ export function ThemeToggle() {
           rotate: isDark ? 0 : 90,
         }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
-        className="absolute absolute-center text-accent-foreground dark:text-neutral-200"
+        className="absolute absolute-center text-accent-foreground dark:text-white"
       >
         <Moon size={18} />
       </motion.div>

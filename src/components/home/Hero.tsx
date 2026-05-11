@@ -42,26 +42,21 @@ export default function Hero() {
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* BASE LAYER: Blurred background image */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.05] saturate-[0.85] sepia-[0.05] dark:brightness-[0.4] dark:contrast-[1.2] dark:saturate-[0.6] dark:sepia-0"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.05] saturate-[0.85] sepia-[0.05] dark:brightness-[0.9] dark:contrast-[1.05] dark:saturate-[0.85] dark:sepia-0"
         style={{ backgroundImage: "var(--hero-bg)" }}
       >
         <div className="absolute inset-0 backdrop-blur-md hero-blur-overlay" />
-        {/* Night tint overlay - simplified for performance */}
-        <div className="absolute inset-0 hidden dark:block bg-black/40" />
       </div>
 
       {/* MASK LAYER: Sharp background image revealed ONLY around the cursor */}
       <motion.div 
-        className="absolute inset-0 z-[5] bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.05] saturate-[0.85] sepia-[0.05] dark:brightness-[0.5] dark:contrast-[1.2] dark:saturate-[0.7] dark:sepia-0"
+        className="absolute inset-0 z-[5] bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.05] saturate-[0.85] sepia-[0.05] dark:brightness-[0.95] dark:contrast-[1.3] dark:saturate-[0.85] dark:sepia-0"
         style={{ 
           backgroundImage: "var(--hero-bg)",
           maskImage: maskImage,
           WebkitMaskImage: maskImage,
         }}
-      >
-        {/* Night tint overlay for the sharp mask - simplified */}
-        <div className="absolute inset-0 hidden dark:block bg-black/20 pointer-events-none" />
-      </motion.div>
+      />
 
       {/* Hero Content */}
       <div className="container relative z-20 mx-auto px-6 md:px-12 text-center md:text-left flex flex-col items-center md:items-start text-white pointer-events-none">
@@ -92,7 +87,7 @@ export default function Hero() {
         >
           <Link 
             href="/projects"
-            className="inline-flex items-center space-x-3 bg-white text-primary px-8 py-4 rounded-full font-medium hover:bg-accent hover:text-white transition-all duration-300 shadow-lg shadow-black/20"
+            className="inline-flex items-center space-x-3 bg-white text-neutral-900 dark:bg-accent dark:text-neutral-900 px-8 py-4 rounded-full font-medium hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-accent transition-all duration-300 shadow-lg shadow-black/20"
           >
             <span>View Portfolio</span>
             <ArrowRight size={18} />

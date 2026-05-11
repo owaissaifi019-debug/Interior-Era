@@ -12,7 +12,7 @@ export default function Footer() {
               Crafting timeless, luxury spaces that elevate the human experience. Modern design with a soul.
             </p>
           </div>
-          
+
           <div>
             <h4 className="font-medium uppercase tracking-widest mb-6">Explore</h4>
             <ul className="space-y-4 text-muted/80">
@@ -22,7 +22,7 @@ export default function Footer() {
               <li><Link href="/contact" className="hover:text-accent transition">Contact</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="font-medium uppercase tracking-widest mb-6">Connect</h4>
             <div className="flex space-x-4 mb-6">
@@ -31,12 +31,12 @@ export default function Footer() {
               <a href="#" className="hover:text-accent transition"><Twitter size={20} /></a>
             </div>
             <p className="text-muted/80">
-              hello@interiorera.design<br />
-              +1 (555) 123-4567
+              Shahid@gmail.com<br />
+              +91 9876543210
             </p>
           </div>
         </div>
-        
+
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted/60">
           <p>&copy; {new Date().getFullYear()} Interior Era. All rights reserved.</p>
           <div className="space-x-6 mt-4 md:mt-0">

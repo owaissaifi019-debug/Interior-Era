@@ -20,12 +20,14 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
+    { name: "Home", href: "/", desc: "Studio Overview" },
+    { name: "About", href: "/about", desc: "Our Philosophy" },
+    { name: "Projects", href: "/projects", desc: "Selected Works" },
+    { name: "Services", href: "/services", desc: "Our Expertise" },
+    { name: "Contact", href: "/contact", desc: "Get in Touch" },
   ];
+
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <nav
@@ -37,17 +39,50 @@ export default function Navbar() {
         <AnimatedLogo />
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium uppercase tracking-widest hover:text-accent transition-colors"
-            >
-              {link.name}
-            </Link>
+        <div className="hidden md:flex items-center gap-4">
+          {navLinks.map((link, index) => (
+            <div key={link.name} className="relative inline-block">
+              <Link
+                href={link.href}
+                className="text-sm font-medium uppercase tracking-widest text-foreground/80 hover:text-accent transition-colors px-2 py-1"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              >
+                {link.name}
+              </Link>
+
+              <AnimatePresence>
+                {hoveredIndex === index && (
+                  <motion.div
+                    key={`popup-${link.name}`}
+                    initial={{ opacity: 0, y: 10, scale: 0.95, x: "-50%" }}
+                    animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95, x: "-50%" }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute top-full left-1/2 mt-2 w-48 p-5 bg-background dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-2xl rounded-2xl z-[100] pointer-events-none"
+                  >
+                    {/* Decorative Arrow */}
+                    <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-background dark:bg-neutral-900 border-t border-l border-neutral-200 dark:border-neutral-800 rotate-45" />
+                    
+                    <div className="relative">
+                      <span className="text-[10px] uppercase tracking-[0.25em] text-accent font-bold mb-2 block opacity-80">
+                        Explore
+                      </span>
+                      <h4 className="text-sm text-foreground font-semibold leading-tight mb-1">
+                        {link.name}
+                      </h4>
+                      <p className="text-xs text-muted-foreground leading-snug">
+                        {link.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           ))}
-          <ThemeToggle />
+          <div className="pl-4">
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Mobile Controls */}
@@ -76,7 +111,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium uppercase tracking-widest hover:text-accent transition-colors"
+                className="text-lg font-medium uppercase tracking-widest text-foreground hover:text-accent transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}

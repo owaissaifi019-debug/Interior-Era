@@ -35,7 +35,7 @@ export default function AnimatedLogo() {
     <div className="relative inline-block">
       <Link
         href="/"
-        className="font-serif text-2xl font-bold tracking-wider relative z-10 transition-transform active:scale-95 duration-200 block"
+        className="font-serif text-2xl font-bold tracking-wider relative z-10 transition-transform active:scale-95 duration-200 block text-foreground"
         onClick={handleClick}
       >
         INTERIOR ERA

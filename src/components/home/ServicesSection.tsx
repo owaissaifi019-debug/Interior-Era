@@ -46,7 +46,7 @@ export default function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white dark:bg-neutral-900/50 dark:border dark:border-neutral-800 p-10 hover:shadow-xl dark:hover:shadow-neutral-900/50 transition-shadow duration-300 group"
+              className="bg-white dark:bg-neutral-900 dark:border dark:border-neutral-800 p-10 hover:shadow-xl dark:hover:shadow-neutral-900 transition-shadow duration-300 group"
             >
               <div className="group-hover:-translate-y-2 transition-transform duration-300">
                 {service.icon}

@@ -63,9 +63,25 @@ export default function WhatsAppButton() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-accent shadow-xl shadow-black/20 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-neutral-950 border border-accent/20"
+        className="relative w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-accent shadow-xl shadow-black/20 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-neutral-950 border border-accent/20"
         aria-label="Contact us on WhatsApp"
       >
+        {/* Pulsing Ripple Effect */}
+        {!isOpen && (
+          <>
+            <motion.div
+              className="absolute inset-0 rounded-full bg-accent/40 -z-10"
+              animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            />
+            <motion.div
+              className="absolute inset-0 rounded-full bg-accent/20 -z-10"
+              animate={{ scale: [1, 2.4], opacity: [0.3, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
+            />
+          </>
+        )}
+
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div
