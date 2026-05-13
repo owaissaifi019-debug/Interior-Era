@@ -35,7 +35,7 @@ export default function WhatsAppButton() {
             </div>
             <div className="p-5 flex flex-col gap-4">
               <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                Hi there! 👋 How can we help you today? We typically reply within a few minutes.
+                Hi there! 👋 Welcome to Interior Era. How can our design experts assist you in transforming your space today?
               </div>
               <div className="flex items-center gap-3 bg-neutral-50 dark:bg-neutral-800/50 p-3 rounded-lg border border-neutral-100 dark:border-neutral-800">
                 <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center text-accent-foreground dark:text-accent">
@@ -60,22 +60,24 @@ export default function WhatsAppButton() {
       </AnimatePresence>
 
       <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        animate={{ y: [0, -15, 0] }}
+        transition={{ y: { duration: 1.2, repeat: Infinity, ease: "easeOut" } }}
         onClick={() => setIsOpen(!isOpen)}
-        className="relative w-14 h-14 rounded-full bg-primary hover:bg-primary/90 text-accent shadow-xl shadow-black/20 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-neutral-950 border border-accent/20"
+        className="relative w-14 h-14 rounded-full bg-primary hover:bg-[#25D366] text-accent hover:text-white shadow-xl shadow-black/20 hover:shadow-[#25D366]/50 flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#25D366] dark:focus:ring-offset-neutral-950 border border-accent/20 group z-50"
         aria-label="Contact us on WhatsApp"
       >
         {/* Pulsing Ripple Effect */}
         {!isOpen && (
           <>
             <motion.div
-              className="absolute inset-0 rounded-full bg-accent/40 -z-10"
+              className="absolute inset-0 rounded-full bg-accent/40 group-hover:bg-[#25D366]/40 -z-10 transition-colors duration-300"
               animate={{ scale: [1, 1.8], opacity: [0.6, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
             />
             <motion.div
-              className="absolute inset-0 rounded-full bg-accent/20 -z-10"
+              className="absolute inset-0 rounded-full bg-accent/20 group-hover:bg-[#25D366]/20 -z-10 transition-colors duration-300"
               animate={{ scale: [1, 2.4], opacity: [0.3, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeOut", delay: 0.5 }}
             />

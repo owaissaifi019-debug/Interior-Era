@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import AnimatedLogo from "./AnimatedLogo";
@@ -19,8 +20,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const pathname = usePathname();
+
   const navLinks = [
-    { name: "Home", href: "/", desc: "Studio Overview" },
+    ...(pathname !== "/" ? [{ name: "Home", href: "/", desc: "Back to Home" }] : []),
     { name: "About", href: "/about", desc: "Our Philosophy" },
     { name: "Projects", href: "/projects", desc: "Selected Works" },
     { name: "Services", href: "/services", desc: "Our Expertise" },

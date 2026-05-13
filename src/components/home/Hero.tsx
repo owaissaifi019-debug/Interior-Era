@@ -71,10 +71,10 @@ export default function Hero() {
         </motion.div>
         
         <motion.h1 
-          className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-tight mb-8 max-w-4xl drop-shadow-xl"
-          initial={{ opacity: 0, y: 30 }}
+          className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-tight mb-8 max-w-4xl drop-shadow-2xl tracking-tight"
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           Timeless Luxury <br className="hidden md:block"/> For Modern Living
         </motion.h1>
@@ -83,14 +83,20 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
-          className="pointer-events-auto"
+          className="pointer-events-auto flex flex-col sm:flex-row gap-4"
         >
           <Link 
             href="/projects"
-            className="inline-flex items-center space-x-3 bg-white text-neutral-900 dark:bg-accent dark:text-neutral-900 px-8 py-4 rounded-full font-medium hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-accent transition-all duration-300 shadow-lg shadow-black/20"
+            className="inline-flex items-center justify-center space-x-3 bg-white text-neutral-900 dark:bg-accent dark:text-neutral-900 px-8 py-4 rounded-full font-medium hover:bg-accent hover:text-white dark:hover:bg-white dark:hover:text-accent transition-all duration-300 shadow-lg shadow-black/20"
           >
-            <span>View Portfolio</span>
+            <span>Explore Projects</span>
             <ArrowRight size={18} />
+          </Link>
+          <Link 
+            href="/contact"
+            className="inline-flex items-center justify-center space-x-3 bg-transparent border border-white/40 text-white px-8 py-4 rounded-full font-medium hover:bg-white/10 hover:border-white transition-all duration-300"
+          >
+            <span>Get Consultation</span>
           </Link>
         </motion.div>
       </div>
