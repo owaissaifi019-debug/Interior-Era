@@ -3,31 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --background: #FAFAFA;
-  --foreground: #1A1A1A;
-  --primary: #1A1A1A;
-  --primary-foreground: #FAFAFA;
-  --secondary: #E5E0D8;
-  --secondary-foreground: #1A1A1A;
-  --muted: #F5F5F5;
-  --muted-foreground: #666666;
-  --accent: #D4B895;
-  --accent-foreground: #1A1A1A;
+  --background: #F9F8F6;
+  --foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0EEE9;
+  --secondary-foreground: #000000;
+  --muted: #F5F4F1;
+  --muted-foreground: #777777;
+  --accent: #C5A073;
+  --accent-foreground: #000000;
   --hero-bg: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=2000');
   color-scheme: light;
 }
 
 .dark {
-  --background: #121212;
-  --foreground: #FAFAFA;
-  --primary: #FAFAFA;
-  --primary-foreground: #121212;
-  --secondary: #2A2A2A;
-  --secondary-foreground: #FAFAFA;
-  --muted: #1E1E1E;
-  --muted-foreground: #A0A0A0;
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --primary: #FFFFFF;
+  --primary-foreground: #000000;
+  --secondary: #111111;
+  --secondary-foreground: #FFFFFF;
+  --muted: #111111;
+  --muted-foreground: #888888;
   --accent: #D4B895;
-  --accent-foreground: #121212;
+  --accent-foreground: #000000;
   color-scheme: dark;
 }
 
@@ -48,13 +48,15 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dark .glass {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* View Transition API styles */

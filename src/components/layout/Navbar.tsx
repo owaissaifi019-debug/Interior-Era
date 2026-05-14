@@ -32,14 +32,23 @@ export default function Navbar() {
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  // Automatically close all popups and mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+    setHoveredIndex(null);
+  }, [pathname]);
+
+  const isHeroPage = ["/", "/about", "/services"].includes(pathname);
+  const useWhiteText = isHeroPage && !scrolled && !isOpen;
+
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
         scrolled ? "glass py-4 shadow-sm" : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        <AnimatedLogo />
+        <AnimatedLogo useWhiteText={useWhiteText} />
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-4">
@@ -47,7 +56,11 @@ export default function Navbar() {
             <div key={link.name} className="relative inline-block">
               <Link
                 href={link.href}
-                className="text-sm font-medium uppercase tracking-widest text-foreground/80 hover:text-accent transition-colors px-2 py-1"
+                className={`text-sm font-medium uppercase tracking-widest transition-all duration-200 active:scale-95 active:opacity-70 px-2 py-1 ${
+                  useWhiteText 
+                    ? "text-white/90 hover:text-accent" 
+                    : "text-foreground/80 hover:text-accent"
+                }`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
@@ -84,17 +97,19 @@ export default function Navbar() {
             </div>
           ))}
           <div className="pl-4">
-            <ThemeToggle />
+            <ThemeToggle forceLight={useWhiteText} />
           </div>
         </div>
 
         {/* Mobile Controls */}
         <div className="md:hidden flex items-center space-x-4">
-          <ThemeToggle />
+          <ThemeToggle forceLight={useWhiteText} />
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Menu"
-            className="text-foreground focus:outline-none"
+            className={`transition-all duration-200 active:scale-90 focus:outline-none ${
+              useWhiteText ? "text-white" : "text-foreground"
+            }`}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

@@ -1,13 +1,20 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
   const phoneNumber = "9910620810";
   const whatsappUrl = `https://wa.me/919910620810`;
+
+  // Automatically close popup when navigating between pages
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">

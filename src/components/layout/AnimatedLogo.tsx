@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const ICONS = [Armchair, Lamp, Bed, Flower2, LampFloor, Lightbulb];
 
-export default function AnimatedLogo() {
+export default function AnimatedLogo({ useWhiteText }: { useWhiteText?: boolean }) {
   const [items, setItems] = useState<{ id: number; Icon: any; x: number; y: number; rotate: number }[]>([]);
 
   const handleClick = () => {
@@ -35,7 +35,9 @@ export default function AnimatedLogo() {
     <div className="relative inline-block">
       <Link
         href="/"
-        className="font-serif text-2xl font-bold tracking-wider relative z-10 transition-transform active:scale-95 duration-200 block text-foreground"
+        className={`font-serif text-2xl font-bold tracking-wider relative z-10 transition-transform active:scale-95 duration-200 block ${
+          useWhiteText ? "!text-white" : "text-foreground"
+        }`}
         onClick={handleClick}
       >
         INTERIOR ERA

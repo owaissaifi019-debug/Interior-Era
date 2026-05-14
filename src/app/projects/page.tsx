@@ -25,63 +25,63 @@ const dummyProjects = [
     title: "The Magnolia Residence",
     category: "RESIDENTIAL INTERIOR DESIGN",
     location: "Gurugram",
-    image: "/img/project-1.jpeg"
+    image: "/Images/Residential Project/living_room.webp"
   },
   {
     id: 2,
     title: "Vertex Capital HQ",
     category: "OFFICE INTERIOR DESIGN",
     location: "New Delhi",
-    image: "/img/project-2.jpeg"
+    image: "/Images/Aevom Office (Commercial  Project)/office_interior.webp"
   },
   {
     id: 3,
     title: "Araya Penthouse",
     category: "BESPOKE INTERIOR DESIGN",
     location: "Gurugram",
-    image: "/img/project-3.jpeg"
+    image: "/Images/Residential Project 2/living_room_image.webp"
   },
   {
     id: 4,
-    title: "Lumina Boutique",
-    category: "RETAIL INTERIOR DESIGN",
+    title: "Aevom Corporate Office",
+    category: "COMMERCIAL INTERIOR DESIGN",
     location: "Mumbai",
-    image: "/img/project-4.jpeg"
+    image: "/Images/Aevom Office (Commercial  Project)/office_image.webp"
   },
   {
     id: 5,
     title: "The Heritage Villa",
     category: "ARCHITECTURAL & INTERIOR DESIGN",
     location: "Jaipur",
-    image: "/img/project-5.jpeg"
+    image: "/Images/Residential Project/interior_image.webp"
   },
   {
     id: 6,
-    title: "Artisan Lounge",
-    category: "CUSTOM FURNITURE",
+    title: "Modern Minimalist Bedroom",
+    category: "RESIDENTIAL INTERIOR DESIGN",
     location: "Bengaluru",
-    image: "/img/project-6.jpeg"
+    image: "/Images/Residential Project 2/bedroom_image.webp"
   },
   {
     id: 7,
-    title: "Oasis Resort Spa",
-    category: "TURNKEY EXECUTION",
+    title: "Luxe Living Setup",
+    category: "BESPOKE INTERIOR DESIGN",
     location: "Goa",
-    image: "/img/project-1.jpeg"
+    image: "/Images/Residential Project 2/interior_setup.webp"
   },
   {
     id: 8,
-    title: "Modern Minimalist",
-    category: "RESIDENTIAL INTERIOR DESIGN",
+    title: "Aevom Workspace",
+    category: "OFFICE INTERIOR DESIGN",
     location: "Pune",
-    image: "/img/project-2.jpeg"
+    image: "/Images/Aevom Office (Commercial  Project)/office_interior-1.webp"
   },
   {
     id: 9,
-    title: "Tech Hub Tower",
-    category: "COMMERCIAL INTERIOR DESIGN",
+    title: "Signature Dining",
+    category: "RESIDENTIAL INTERIOR DESIGN",
     location: "Hyderabad",
-    image: "/img/project-3.jpeg"
+    image: "/Images/Residential Project 2/dining_room.webp"
   }
 ];
 

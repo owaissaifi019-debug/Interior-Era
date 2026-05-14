@@ -3,12 +3,14 @@
 import Image from "next/image";
 
 const images = [
-  "/img/project-1.jpeg",
-  "/img/project-2.jpeg",
-  "/img/project-3.jpeg",
-  "/img/project-4.jpeg",
-  "/img/project-5.jpeg",
-  "/img/project-6.jpeg",
+  "/Images/Residential Project/living_room.webp",
+  "/Images/Residential Project/interior_image.webp",
+  "/Images/Residential Project 2/bedroom_image.webp",
+  "/Images/Residential Project 2/dining_room.webp",
+  "/Images/Aevom Office (Commercial  Project)/office_interior.webp",
+  "/Images/Aevom Office (Commercial  Project)/office_image.webp",
+  "/Images/Residential Project/IMG-20260514-WA0016.webp",
+  "/Images/Residential Project 2/living_room.webp",
 ];
 
 export default function MiniSlider() {

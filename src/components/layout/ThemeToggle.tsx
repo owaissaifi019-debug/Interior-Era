@@ -6,7 +6,7 @@ import { Moon, Sun } from "lucide-react";
 import { motion } from "framer-motion";
 import { flushSync } from "react-dom";
 
-export function ThemeToggle() {
+export function ThemeToggle({ forceLight }: { forceLight?: boolean }) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -44,7 +44,11 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative flex items-center justify-center w-9 h-9 rounded-full bg-secondary/50 hover:bg-secondary dark:bg-neutral-800 dark:hover:bg-neutral-700 transition-colors focus:outline-none z-[100]"
+      className={`relative flex items-center justify-center w-9 h-9 rounded-full transition-colors focus:outline-none z-[100] ${
+        forceLight 
+          ? "bg-white/10 hover:bg-white/20 border border-white/10" 
+          : "bg-secondary/50 hover:bg-secondary dark:bg-neutral-800 dark:hover:bg-neutral-700"
+      }`}
       aria-label="Toggle theme"
     >
       <motion.div
@@ -54,7 +58,9 @@ export function ThemeToggle() {
           rotate: isDark ? -90 : 0,
         }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
-        className="absolute absolute-center text-accent-foreground dark:text-neutral-200"
+        className={`absolute absolute-center ${
+          forceLight ? "text-white" : "text-accent-foreground dark:text-neutral-200"
+        }`}
       >
         <Sun size={18} />
       </motion.div>
@@ -66,7 +72,9 @@ export function ThemeToggle() {
           rotate: isDark ? 0 : 90,
         }}
         transition={{ duration: 0.2, ease: "easeInOut" }}
-        className="absolute absolute-center text-accent-foreground dark:text-white"
+        className={`absolute absolute-center ${
+          forceLight ? "text-white" : "text-accent-foreground dark:text-white"
+        }`}
       >
         <Moon size={18} />
       </motion.div>

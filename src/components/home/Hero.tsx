@@ -42,10 +42,12 @@ export default function Hero() {
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
       {/* BASE LAYER: Blurred background image */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat brightness-[1.05] contrast-[1.05] saturate-[0.85] sepia-[0.05] dark:brightness-[0.9] dark:contrast-[1.05] dark:saturate-[0.85] dark:sepia-0"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat brightness-[0.7] contrast-[1.05] saturate-[0.85] sepia-[0.05] dark:brightness-[0.9] dark:contrast-[1.05] dark:saturate-[0.85] dark:sepia-0"
         style={{ backgroundImage: "var(--hero-bg)" }}
       >
         <div className="absolute inset-0 backdrop-blur-md hero-blur-overlay" />
+        {/* Top gradient for header visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent z-10" />
       </div>
 
       {/* MASK LAYER: Sharp background image revealed ONLY around the cursor */}
