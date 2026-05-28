@@ -71,7 +71,7 @@ export default function AboutPage() {
               className="lg:w-1/2 relative h-[500px] w-full rounded-sm overflow-hidden"
             >
               <Image 
-                src="/img/project-4.jpeg"
+                src="/Images/Residential Project 2/living_room.webp"
                 alt="Our Design Process"
                 fill
                 className="object-cover"

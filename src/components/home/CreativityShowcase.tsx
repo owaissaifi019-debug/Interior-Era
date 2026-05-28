@@ -7,9 +7,9 @@ import { useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-  "/img/project-2.jpeg",
-  "/img/project-3.jpeg",
-  "/img/project-4.jpeg"
+  "/Images/Residential Project 2/living_room.webp",
+  "/Images/Residential Project (Civil Line Gurugram)/modern_bedroom.webp",
+  "/Images/Residential Project (Phase 4)/bathroom_design.webp"
 ];
 
 export default function CreativityShowcase() {
@@ -53,15 +53,15 @@ export default function CreativityShowcase() {
           </div>
 
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute bottom-0 left-0 md:left-12 bg-background/90 backdrop-blur-xl p-8 md:p-12 max-w-2xl border-t border-r border-white/10"
+            className="absolute bottom-6 left-6 right-6 md:right-auto md:left-12 md:bottom-8 bg-black/70 backdrop-blur-md p-8 md:p-12 max-w-2xl border border-white/15 shadow-2xl rounded-3xl"
           >
-            <span className="text-xs uppercase tracking-[0.3em] text-accent font-medium mb-4 block">Design Philosophy</span>
-            <h3 className="font-serif text-3xl md:text-4xl font-medium mb-6 leading-tight">Where Creativity Meets Architectural Precision.</h3>
-            <p className="text-muted-foreground leading-relaxed font-light text-lg">
+            <span className="text-xs uppercase tracking-[0.3em] text-accent font-semibold mb-4 block">Design Philosophy</span>
+            <h3 className="font-serif text-3xl md:text-4xl font-medium mb-6 leading-tight text-white">Where Creativity Meets Architectural Precision.</h3>
+            <p className="text-white/80 leading-relaxed font-light text-lg">
               Every curve, texture, and light source is meticulously considered. We blend bold, creative visions with rigorous technical execution to craft spaces that inspire and endure.
             </p>
           </motion.div>

@@ -16,31 +16,31 @@ const testimonials = [
     quote: "I am sitting in my beautiful drawing room and feeling quite emotional. Getting this house redone was my dream but one which came with a lot of risks and uncertainties around whether it will come out as I had imagined it or whether the investment will reflect when someone comes to the house.",
     author: "PRERNA SHARMA",
     role: "BESTACH PARK VIEW SPA",
-    image: "/img/project-4.jpeg"
+    image: "/Images/Residential Project/living_room.webp"
   },
   {
     quote: "We would like to thank Team Interia for making our house so beautiful. We are loving the interiors. We truly appreciate the effort you take to understand the client and modify things accordingly. It was a great experience for us and I also learned lot of new things and improved my vocabulary in home decor.",
     author: "DR PRASHANT BHANGUI",
     role: "ORCHID PETALS",
-    image: "/img/project-5.jpeg"
+    image: "/Images/Residential Project (Civil Line Gurugram)/modern_bedroom.webp"
   },
   {
     quote: "We have enjoyed building our home with you, Umesh and the Interia Team and are delighted with how it's turned out.",
     author: "SUMIT SHARMA",
     role: "PIONEER ARAYA",
-    image: "/img/project-6.jpeg"
+    image: "/Images/Residential Project 2/dining_room.webp"
   },
   {
     quote: "Their team brought a level of sophistication and modern elegance to our penthouse that we didn't know was possible. Every corner feels intentional, perfectly balanced, and uniquely tailored to our lifestyle.",
     author: "AMIT DESAI",
     role: "THE MAGNOLIAS",
-    image: "/img/project-1.jpeg"
+    image: "/Images/Residential Project 2/living_room_image.webp"
   },
   {
     quote: "Professionalism at its peak. The entire journey from 3D renders to final execution was flawless. They delivered not just a beautiful house, but a true architectural masterpiece.",
     author: "KAVITA SINGH",
     role: "DLF CAMELLIAS",
-    image: "/img/project-2.jpeg"
+    image: "/Images/Residential Project (DLF phase 4)/house_entrance.webp"
   }
 ];
 

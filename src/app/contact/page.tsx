@@ -96,16 +96,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">Estimated Budget</label>
-              <select name="budget" value={formData.budget} onChange={handleChange} className="w-full border-b border-muted dark:border-neutral-800 py-2 bg-transparent focus:outline-none focus:border-accent transition-colors text-foreground appearance-none rounded-none bg-white dark:bg-neutral-900">
-                <option value="" disabled>Select Range</option>
-                <option value="Under $50k">Under $50k</option>
-                <option value="$50k - $150k">$50k - $150k</option>
-                <option value="$150k - $500k">$150k - $500k</option>
-                <option value="$500k+">$500k+</option>
-              </select>
-            </div>
+
 
             <div>
               <label className="block text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3">Message *</label>
