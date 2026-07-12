@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
-const projects = [
+const fallbackProjects = [
   {
     id: 1,
     title: "The Magnolia Residence",
@@ -72,7 +72,19 @@ const projects = [
   },
 ];
 
-export default function FeaturedProjects() {
+export default function FeaturedProjects({ projects }: { projects?: any[] }) {
+  const displayProjects = projects && projects.length > 0 
+    ? projects.map(p => ({
+        id: p.id,
+        title: p.title,
+        category: p.category,
+        location: p.location,
+        scope: p.scope,
+        image: p.image,
+        link: `/projects?id=${p.id}`
+      }))
+    : fallbackProjects;
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -132,7 +144,7 @@ export default function FeaturedProjects() {
         <div className="flex flex-col lg:flex-row gap-0 lg:gap-0 border border-muted/30 rounded-2xl overflow-hidden bg-card min-h-[600px] lg:min-h-[700px]">
           {/* LEFT COLUMN: Interactive project list */}
           <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col relative z-10">
-            {projects.map((project, index) => (
+            {displayProjects.map((project, index) => (
               <Link
                 key={project.id}
                 href={project.link}
@@ -211,7 +223,7 @@ export default function FeaturedProjects() {
           <div className="w-full lg:w-[55%] xl:w-[60%] relative h-[400px] lg:h-auto bg-black overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
-                key={projects[activeIndex].id}
+                key={displayProjects[activeIndex].id}
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
@@ -219,8 +231,8 @@ export default function FeaturedProjects() {
                 className="absolute inset-0"
               >
                 <Image
-                  src={projects[activeIndex].image}
-                  alt={projects[activeIndex].title}
+                  src={displayProjects[activeIndex].image}
+                  alt={displayProjects[activeIndex].title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 60vw"
@@ -234,7 +246,7 @@ export default function FeaturedProjects() {
             {/* Floating badge */}
             <div className="absolute bottom-6 right-6 z-10">
               <Link
-                href={projects[activeIndex].link}
+                href={displayProjects[activeIndex].link}
                 className="bg-white/10 backdrop-blur-lg border border-white/20 text-white px-5 py-3 rounded-full text-xs uppercase tracking-[0.2em] font-semibold hover:bg-accent hover:border-accent transition-all duration-300 flex items-center space-x-2 shadow-2xl"
               >
                 <span>View Project</span>
@@ -245,10 +257,10 @@ export default function FeaturedProjects() {
             {/* Project title overlay on image for mobile */}
             <div className="absolute bottom-6 left-6 z-10 lg:hidden">
               <span className="text-xs uppercase tracking-widest text-accent font-semibold">
-                {projects[activeIndex].category}
+                {displayProjects[activeIndex].category}
               </span>
               <h3 className="text-white font-serif text-2xl font-medium mt-1 drop-shadow-lg">
-                {projects[activeIndex].title}
+                {displayProjects[activeIndex].title}
               </h3>
             </div>
           </div>

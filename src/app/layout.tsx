@@ -6,6 +6,8 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/layout/WhatsAppButton";
 import { ThemeProvider } from "@/components/theme-provider";
 
+import { createClient } from "@/utils/supabase/server";
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
@@ -14,11 +16,20 @@ export const metadata: Metadata = {
   description: "Premium interior design portfolio showcasing modern luxury spaces.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = createClient();
+  let settings = null;
+  try {
+    const { data } = await supabase.from("site_settings").select("*").maybeSingle();
+    settings = data;
+  } catch (error) {
+    console.error("Failed to fetch settings:", error);
+  }
+
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}>
@@ -32,8 +43,8 @@ export default function RootLayout({
           <main className="min-h-screen">
             {children}
           </main>
-          <Footer />
-          <WhatsAppButton />
+          <Footer settings={settings} />
+          <WhatsAppButton settings={settings} />
         </ThemeProvider>
       </body>
     </html>

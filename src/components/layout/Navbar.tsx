@@ -38,6 +38,8 @@ export default function Navbar() {
     setHoveredIndex(null);
   }, [pathname]);
 
+  if (pathname?.startsWith("/admin")) return null;
+
   const isHeroPage = ["/", "/about", "/services"].includes(pathname);
   const useWhiteText = isHeroPage && !scrolled && !isOpen;
 

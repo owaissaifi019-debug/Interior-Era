@@ -1,5 +1,162 @@
 {
-  "node": {},
+  "node": {
+    "78afc0d4da8c7f5a9a6a403203119c9f8c6da501": {
+      "workers": {
+        "app/admin/login/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/login/page": "rsc"
+      }
+    },
+    "73aafbbaedc97450c2dde4f769f119e65ec95bbb": {
+      "workers": {
+        "app/admin/login/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clogin%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!",
+        "app/admin/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!",
+        "app/admin/slides/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cslides%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!",
+        "app/admin/projects/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cprojects%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_3%22%2C%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!",
+        "app/admin/services/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!",
+        "app/admin/testimonials/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Ctestimonials%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!",
+        "app/admin/settings/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Csettings%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/login/page": "rsc",
+        "app/admin/page": "rsc",
+        "app/admin/slides/page": "rsc",
+        "app/admin/projects/page": "rsc",
+        "app/admin/services/page": "rsc",
+        "app/admin/testimonials/page": "rsc",
+        "app/admin/settings/page": "rsc"
+      }
+    },
+    "2e664ce38c4dc251339f34bac12be498f2112560": {
+      "workers": {
+        "app/admin/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/page": "rsc"
+      }
+    },
+    "e53611e97728c0940f1e77f930bc8d86864eb62a": {
+      "workers": {
+        "app/admin/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/page": "rsc"
+      }
+    },
+    "58f717007f0dc62d53b7a8c37d6dd2f282101559": {
+      "workers": {
+        "app/admin/slides/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cslides%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/slides/page": "rsc"
+      }
+    },
+    "dd4c4e9e578862a7693d49b9a9070760446d94cd": {
+      "workers": {
+        "app/admin/slides/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cslides%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/slides/page": "rsc"
+      }
+    },
+    "e0c226c02e431ee68671a83183146d3e66bca3fe": {
+      "workers": {
+        "app/admin/slides/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cslides%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/slides/page": "rsc"
+      }
+    },
+    "04264e559de4348de52a0d1c19051ceba19e0158": {
+      "workers": {
+        "app/admin/projects/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cprojects%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_3%22%2C%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/projects/page": "rsc"
+      }
+    },
+    "6996899e2b2d5342115340d5b823cc57decb1a0c": {
+      "workers": {
+        "app/admin/projects/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cprojects%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_3%22%2C%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/projects/page": "rsc"
+      }
+    },
+    "ac3ceb9d2c8e8ee7aa0b13e955cb0fdab9e2ee87": {
+      "workers": {
+        "app/admin/projects/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cprojects%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_3%22%2C%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/projects/page": "rsc"
+      }
+    },
+    "f14a0f415a9e34313c5c2f61caa6b1f0d2a09ff3": {
+      "workers": {
+        "app/admin/projects/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cprojects%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_3%22%2C%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/projects/page": "rsc"
+      }
+    },
+    "b099b24a57e7bf22bd9e160e81ece0e50db5ec34": {
+      "workers": {
+        "app/admin/services/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/services/page": "rsc"
+      }
+    },
+    "c56541eae83f7864e83c62f596ab423f52d68f0e": {
+      "workers": {
+        "app/admin/services/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/services/page": "rsc"
+      }
+    },
+    "e37e56e72f5e12c49b183adb5ec8361dac8a5bdf": {
+      "workers": {
+        "app/admin/services/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%2C%22%24%24ACTION_1%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/services/page": "rsc"
+      }
+    },
+    "17a097fe985fafb78dbe1bdec7283b5d37e5f5b4": {
+      "workers": {
+        "app/admin/testimonials/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Ctestimonials%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/testimonials/page": "rsc"
+      }
+    },
+    "ad0199eeabd4dea34a33d4d227ad4813be9a1057": {
+      "workers": {
+        "app/admin/testimonials/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Ctestimonials%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/testimonials/page": "rsc"
+      }
+    },
+    "c29c245d217f9414a218455f320e28c2c35d3e53": {
+      "workers": {
+        "app/admin/testimonials/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Ctestimonials%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_1%22%2C%22%24%24ACTION_0%22%2C%22%24%24ACTION_2%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/testimonials/page": "rsc"
+      }
+    },
+    "6488e51606da8f5f056633661b90c7132cf73cf1": {
+      "workers": {
+        "app/admin/settings/page": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Csettings%5C%5Cpage.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%2C%5B%22E%3A%5C%5COwais%5C%5CAntigravity%5C%5CProject%20A%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Clayout.tsx%22%2C%5B%22%24%24ACTION_0%22%5D%5D%5D&__client_imported__=!"
+      },
+      "layer": {
+        "app/admin/settings/page": "rsc"
+      }
+    }
+  },
   "edge": {},
-  "encryptionKey": "VcHg8RFoXFf9A56G0L0Pgy9txO6zZUY+innTi/lGuJM="
+  "encryptionKey": "J0rmGzqhNWQJSdYID/dgINo1v2jIwrldwqYWBvjZCa0="
 }

@@ -6,9 +6,10 @@ import Link from "next/link";
 import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ArrowRight, X, MapPin, Briefcase, DollarSign, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
+import { createClient } from "@/utils/supabase/client";
 
 // Real projects mapped to the actual uploaded directories inside public/Images
-const realProjects = [
+const fallbackProjects = [
   {
     id: 1,
     title: "The Magnolia Residence",
@@ -267,25 +268,72 @@ const categories = [
   { id: "BESPOKE", label: "Bespoke" }
 ];
 
-type ProjectType = typeof realProjects[0];
+type ProjectType = {
+  id: number;
+  title: string;
+  category: string;
+  scope: string;
+  location: string;
+  budget: string;
+  year: string;
+  image: string;
+  images: string[];
+  description: string;
+};
 
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const projectId = searchParams.get("id");
 
+  const [projects, setProjects] = useState<ProjectType[]>(fallbackProjects);
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  // Fetch projects from Supabase client-side
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("projects")
+          .select("*, project_images(*)")
+          .eq("is_published", true)
+          .order("sort_order", { ascending: true });
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+          const formatted = data.map((p: any) => ({
+            id: p.id,
+            title: p.title,
+            category: p.category,
+            scope: p.scope,
+            location: p.location,
+            budget: p.budget || "",
+            year: p.year,
+            image: p.image,
+            description: p.description,
+            images: [p.image, ...p.project_images.map((img: any) => img.image_url)]
+          }));
+          setProjects(formatted);
+        }
+      } catch (err) {
+        console.error("Error fetching projects from Supabase:", err);
+      }
+    };
+    fetchProjects();
+  }, []);
+
   // Filter projects dynamically
   const filteredProjects = activeCategory === "ALL"
-    ? realProjects
-    : realProjects.filter(p => p.category === activeCategory);
+    ? projects
+    : projects.filter(p => p.category === activeCategory);
 
   // Dynamic category counts helper
   const getCategoryCount = (catId: string) => {
-    if (catId === "ALL") return realProjects.length;
-    return realProjects.filter(p => p.category === catId).length;
+    if (catId === "ALL") return projects.length;
+    return projects.filter(p => p.category === catId).length;
   };
 
   // Keyboard navigation inside modal
@@ -308,13 +356,13 @@ function ProjectsContent() {
   // Handle auto-selection of project via query parameter
   useEffect(() => {
     if (projectId) {
-      const project = realProjects.find(p => p.id === parseInt(projectId));
+      const project = projects.find(p => p.id === parseInt(projectId));
       if (project) {
         setSelectedProject(project);
         setActiveImageIndex(0);
       }
     }
-  }, [projectId]);
+  }, [projectId, projects]);
 
   // Lock body scroll when modal is active
   useEffect(() => {

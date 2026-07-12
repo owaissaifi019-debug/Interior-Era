@@ -11,7 +11,7 @@ const features = [
   "NO QUESTIONS ASKED AFTER HANDOVER SERVICE"
 ];
 
-const testimonials = [
+const fallbackTestimonials = [
   {
     quote: "I am sitting in my beautiful drawing room and feeling quite emotional. Getting this house redone was my dream but one which came with a lot of risks and uncertainties around whether it will come out as I had imagined it or whether the investment will reflect when someone comes to the house.",
     author: "PRERNA SHARMA",
@@ -44,7 +44,9 @@ const testimonials = [
   }
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ testimonials }: { testimonials?: any[] }) {
+  const displayTestimonials = testimonials && testimonials.length > 0 ? testimonials : fallbackTestimonials;
+
   const [emblaRef] = useEmblaCarousel(
     { loop: true, align: "start" },
     [Autoplay({ delay: 3000, stopOnInteraction: false })]
@@ -75,13 +77,13 @@ export default function Testimonials() {
         {/* Cards Carousel Section */}
         <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
           <div className="flex -ml-6">
-            {testimonials.map((item, index) => (
+            {displayTestimonials.map((item, index) => (
               <div key={index} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 pl-6 pb-8 pt-4">
                 <div className="flex flex-col h-full rounded-3xl overflow-hidden shadow-2xl bg-white hover:scale-[1.02] transition-transform duration-500">
                   {/* Image Section */}
                   <div className="relative h-[180px] w-full shrink-0">
                     <Image 
-                      src={item.image}
+                      src={item.image_url || item.image}
                       alt={item.author}
                       fill
                       className="object-cover"

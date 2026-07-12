@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ settings }: { settings?: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const phoneNumber = "9910620810";
-  const whatsappUrl = `https://wa.me/919910620810`;
+  if (pathname?.startsWith("/admin")) return null;
+  const phoneNumber = settings?.whatsapp || "9910620810";
+  const whatsappUrl = `https://wa.me/91${phoneNumber}`;
 
   // Automatically close popup when navigating between pages
   useEffect(() => {
