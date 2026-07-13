@@ -4,7 +4,7 @@ import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
-const features = [
+const defaultFeatures = [
   "EXTREME CUSTOMIZATION",
   "WHITE-GLOVE SERVICE",
   "FULL TRANSPARENCY",
@@ -44,8 +44,9 @@ const fallbackTestimonials = [
   }
 ];
 
-export default function Testimonials({ testimonials }: { testimonials?: any[] }) {
+export default function Testimonials({ testimonials, features }: { testimonials?: any[]; features?: string[] }) {
   const displayTestimonials = testimonials && testimonials.length > 0 ? testimonials : fallbackTestimonials;
+  const displayFeatures = features && features.length === 4 ? features : defaultFeatures;
 
   const [emblaRef] = useEmblaCarousel(
     { loop: true, align: "start" },
@@ -63,7 +64,7 @@ export default function Testimonials({ testimonials }: { testimonials?: any[] })
           </h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
-            {features.map((feature, idx) => (
+            {displayFeatures.map((feature, idx) => (
               <div key={idx} className="flex items-start gap-3">
                 <span className="text-neutral-400 mt-[2px] text-sm">✦</span>
                 <span className="text-xs uppercase tracking-[0.15em] font-medium text-neutral-200 max-w-[200px] leading-relaxed">

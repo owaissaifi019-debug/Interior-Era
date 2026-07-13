@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-const images = [
+const fallbackImages = [
   "/Images/Residential Project/living_room.webp",
   "/Images/Residential Project/interior_image.webp",
   "/Images/Residential Project 2/bedroom_image.webp",
@@ -13,14 +13,16 @@ const images = [
   "/Images/Residential Project 2/living_room.webp",
 ];
 
-export default function MiniSlider() {
+export default function MiniSlider({ images }: { images?: string[] }) {
+  const displayImages = images && images.length > 0 ? images : fallbackImages;
+
   return (
     <section className="py-24 bg-background overflow-hidden border-y border-muted/20 flex flex-col items-center">
       <span className="text-xs uppercase tracking-[0.4em] text-accent mb-12 block font-medium">Signature Details</span>
       
       <div className="w-full relative flex overflow-x-hidden group">
         <div className="flex whitespace-nowrap animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused]">
-          {[...images, ...images, ...images].map((src, index) => (
+          {[...displayImages, ...displayImages, ...displayImages].map((src, index) => (
             <div key={index} className="w-[200px] md:w-[350px] h-[150px] md:h-[250px] mx-4 md:mx-6 relative rounded-3xl overflow-hidden flex-shrink-0 border border-muted/30 shadow-lg">
               <Image 
                 src={src}

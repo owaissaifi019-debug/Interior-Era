@@ -43,7 +43,22 @@ CREATE TABLE IF NOT EXISTS public.site_settings (
     address TEXT DEFAULT '123 Luxury Avenue, Design District',
     instagram TEXT DEFAULT 'https://www.instagram.com/inte.riorera?igsh=MXY3NXVueXk3MjFlMw==',
     linkedin TEXT DEFAULT 'https://www.linkedin.com/in/mohd-shahid-0ab082193?utm_source=share_via&utm_content=profile&utm_medium=member_android',
-    twitter TEXT DEFAULT '#'
+    twitter TEXT DEFAULT '#',
+    stats JSONB DEFAULT '[
+      {"value": 100, "suffix": "+", "label": "Successful Projects"},
+      {"value": 5, "suffix": "+", "label": "Years Experience"},
+      {"value": 50, "suffix": "+", "label": "Happy Clients"},
+      {"value": 100, "suffix": "%", "label": "Creative Designs"}
+    ]'::jsonb,
+    features JSONB DEFAULT '[
+      "EXTREME CUSTOMIZATION",
+      "WHITE-GLOVE SERVICE",
+      "FULL TRANSPARENCY",
+      "NO QUESTIONS ASKED AFTER HANDOVER SERVICE"
+    ]'::jsonb,
+    featured_subheader TEXT DEFAULT 'Selected Portfolio',
+    featured_title TEXT DEFAULT 'Featured Works',
+    featured_description TEXT DEFAULT 'Hover to explore our finest residential, commercial, and bespoke design projects.'
 );
 
 -- Seed initial settings if table is empty
@@ -423,4 +438,68 @@ BEGIN
     );
   END IF;
 END $$;
+
+-- =========================================================================
+-- 11. Signature Details Table (Scrolling Marquee)
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS public.signature_details (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    image_url TEXT NOT NULL,
+    sort_order INT DEFAULT 0
+);
+
+-- Seed initial signature details images from the original list
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Residential Project/living_room.webp', 1 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 1);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Residential Project/interior_image.webp', 2 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 2);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Residential Project 2/bedroom_image.webp', 3 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 3);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Residential Project 2/dining_room.webp', 4 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 4);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Aevom Office (Commercial  Project)/office_interior.webp', 5 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 5);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Aevom Office (Commercial  Project)/office_image.webp', 6 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 6);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Residential Project/IMG-20260514-WA0016.webp', 7 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 7);
+INSERT INTO public.signature_details (image_url, sort_order)
+SELECT '/Images/Residential Project 2/living_room.webp', 8 WHERE NOT EXISTS (SELECT 1 FROM public.signature_details WHERE sort_order = 8);
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE public.signature_details ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+CREATE POLICY "Allow anonymous read" ON public.signature_details FOR SELECT TO anon USING (true);
+CREATE POLICY "Allow authenticated write" ON public.signature_details FOR ALL TO authenticated USING (true);
+
+-- =========================================================================
+-- 12. Storage Bucket Creation and Policies
+-- =========================================================================
+-- Create bucket 'interior-era-media' if it does not exist
+INSERT INTO storage.buckets (id, name, public)
+VALUES ('interior-era-media', 'interior-era-media', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Drop policies if they already exist to avoid name conflicts
+DROP POLICY IF EXISTS "Allow public read access" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated uploads" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated updates" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated deletes" ON storage.objects;
+
+-- Create policies for 'interior-era-media' bucket
+CREATE POLICY "Allow public read access" ON storage.objects
+FOR SELECT TO public USING (bucket_id = 'interior-era-media');
+
+CREATE POLICY "Allow authenticated uploads" ON storage.objects
+FOR INSERT TO authenticated WITH CHECK (bucket_id = 'interior-era-media');
+
+CREATE POLICY "Allow authenticated updates" ON storage.objects
+FOR UPDATE TO authenticated WITH CHECK (bucket_id = 'interior-era-media');
+
+CREATE POLICY "Allow authenticated deletes" ON storage.objects
+FOR DELETE TO authenticated USING (bucket_id = 'interior-era-media');
+
+
 

@@ -32,8 +32,31 @@ export default async function SettingsPage() {
     const instagram = formData.get("instagram") as string;
     const linkedin = formData.get("linkedin") as string;
     const twitter = formData.get("twitter") as string;
-
     const id = formData.get("id") as string;
+
+    // Parse the 4 stats cards
+    const stats = [
+      {
+        value: parseInt(formData.get("stat_0_value") as string || "0"),
+        suffix: formData.get("stat_0_suffix") as string || "",
+        label: formData.get("stat_0_label") as string || ""
+      },
+      {
+        value: parseInt(formData.get("stat_1_value") as string || "0"),
+        suffix: formData.get("stat_1_suffix") as string || "",
+        label: formData.get("stat_1_label") as string || ""
+      },
+      {
+        value: parseInt(formData.get("stat_2_value") as string || "0"),
+        suffix: formData.get("stat_2_suffix") as string || "",
+        label: formData.get("stat_2_label") as string || ""
+      },
+      {
+        value: parseInt(formData.get("stat_3_value") as string || "0"),
+        suffix: formData.get("stat_3_suffix") as string || "",
+        label: formData.get("stat_3_label") as string || ""
+      }
+    ];
 
     const { error } = await supabase
       .from("site_settings")
@@ -45,6 +68,7 @@ export default async function SettingsPage() {
         instagram,
         linkedin,
         twitter,
+        stats,
         updated_at: new Date().toISOString()
       })
       .eq("id", id);
@@ -57,11 +81,20 @@ export default async function SettingsPage() {
     revalidatePath("/");
   };
 
+  const defaultStats = [
+    { value: 100, suffix: "+", label: "Successful Projects" },
+    { value: 5, suffix: "+", label: "Years Experience" },
+    { value: 50, suffix: "+", label: "Happy Clients" },
+    { value: 100, suffix: "%", label: "Creative Designs" }
+  ];
+
+  const currentStats = settings?.stats || defaultStats;
+
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="mb-12">
+    <div className="w-full max-w-4xl mx-auto space-y-12">
+      <div>
         <h1 className="text-4xl font-serif font-medium mb-2">Global Settings</h1>
-        <p className="text-muted-foreground">Manage your studio''s global contact details and social links.</p>
+        <p className="text-muted-foreground">Manage your studio''s global contact details, homepage metrics, and social links.</p>
       </div>
 
       <form action={updateSettings} className="bg-background rounded-xl border border-muted/20 shadow-sm p-8 space-y-6">
@@ -113,6 +146,62 @@ export default async function SettingsPage() {
               defaultValue={settings?.address || ""}
               required 
             />
+          </div>
+        </div>
+
+        <hr className="border-muted/20 my-8" />
+        
+        <div>
+          <h3 className="text-lg font-serif font-medium mb-1 text-accent">Homepage Metrics / Stats</h3>
+          <p className="text-xs text-muted-foreground mb-6">Manage the counter values, suffixes, and labels shown in the homepage stats section.</p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {[0, 1, 2, 3].map((index) => {
+              const stat = currentStats[index] || { value: 0, suffix: "+", label: "" };
+              return (
+                <div key={index} className="bg-secondary/15 p-5 rounded-lg border border-muted/30 space-y-4">
+                  <h4 className="text-xs uppercase tracking-[0.2em] text-accent font-semibold">Stat Card #{index + 1}</h4>
+                  
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="col-span-2 flex flex-col gap-1.5">
+                      <label className="text-[9px] uppercase tracking-wider text-muted-foreground" htmlFor={`stat_${index}_value`}>Number</label>
+                      <input 
+                        type="number"
+                        name={`stat_${index}_value`}
+                        id={`stat_${index}_value`}
+                        defaultValue={stat.value}
+                        className="rounded px-3 py-2 bg-secondary/30 border border-muted/50 text-sm focus:outline-none focus:border-accent"
+                        required
+                      />
+                    </div>
+                    
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[9px] uppercase tracking-wider text-muted-foreground" htmlFor={`stat_${index}_suffix`}>Suffix</label>
+                      <input 
+                        type="text"
+                        name={`stat_${index}_suffix`}
+                        id={`stat_${index}_suffix`}
+                        defaultValue={stat.suffix}
+                        className="rounded px-3 py-2 bg-secondary/30 border border-muted/50 text-sm text-center focus:outline-none focus:border-accent"
+                        required
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[9px] uppercase tracking-wider text-muted-foreground" htmlFor={`stat_${index}_label`}>Label Description</label>
+                    <input 
+                      type="text"
+                      name={`stat_${index}_label`}
+                      id={`stat_${index}_label`}
+                      defaultValue={stat.label}
+                      className="rounded px-3 py-2 bg-secondary/30 border border-muted/50 text-sm focus:outline-none focus:border-accent"
+                      required
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 

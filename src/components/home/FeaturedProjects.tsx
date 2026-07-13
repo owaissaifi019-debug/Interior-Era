@@ -72,7 +72,17 @@ const fallbackProjects = [
   },
 ];
 
-export default function FeaturedProjects({ projects }: { projects?: any[] }) {
+export default function FeaturedProjects({ 
+  projects,
+  subheader,
+  title,
+  description 
+}: { 
+  projects?: any[];
+  subheader?: string;
+  title?: string;
+  description?: string;
+}) {
   const displayProjects = projects && projects.length > 0 
     ? projects.map(p => ({
         id: p.id,
@@ -99,7 +109,7 @@ export default function FeaturedProjects({ projects }: { projects?: any[] }) {
               viewport={{ once: true }}
               className="text-xs font-semibold tracking-[0.3em] text-accent uppercase mb-4 block"
             >
-              Selected Portfolio
+              {subheader || "Selected Portfolio"}
             </motion.span>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -107,7 +117,7 @@ export default function FeaturedProjects({ projects }: { projects?: any[] }) {
               viewport={{ once: true }}
               className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium mb-6 leading-[1.1]"
             >
-              Featured Works
+              {title || "Featured Works"}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -116,8 +126,7 @@ export default function FeaturedProjects({ projects }: { projects?: any[] }) {
               transition={{ delay: 0.1 }}
               className="text-muted-foreground text-lg text-balance font-light"
             >
-              Hover to explore our finest residential, commercial, and bespoke
-              design projects.
+              {description || "Hover to explore our finest residential, commercial, and bespoke design projects."}
             </motion.p>
           </div>
 

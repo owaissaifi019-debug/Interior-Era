@@ -14,7 +14,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   };
 
   return (
-    <div className="min-h-screen bg-secondary/20 flex flex-col md:flex-row pt-20">
+    <div className="min-h-screen bg-secondary/20 flex flex-col md:flex-row pt-16 md:pt-0">
       {user && <Sidebar signOutAction={signOut} />}
       <main className="flex-1 p-6 md:p-12 overflow-auto">
         {children}

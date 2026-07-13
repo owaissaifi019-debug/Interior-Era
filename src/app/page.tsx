@@ -44,17 +44,34 @@ export default async function Home() {
     .eq("is_published", true)
     .order("sort_order", { ascending: true });
 
+  // Fetch Site Settings (for metrics, features & copy)
+  const { data: settings } = await supabase
+    .from("site_settings")
+    .select("stats, features, featured_subheader, featured_title, featured_description")
+    .maybeSingle();
+
+  // Fetch Signature Details (for marquee)
+  const { data: marqueeImages } = await supabase
+    .from("signature_details")
+    .select("image_url")
+    .order("sort_order", { ascending: true });
+
   return (
     <>
       <Hero slides={slides || []} />
       <IdentitySection />
-      <StatsSection />
+      <StatsSection stats={settings?.stats || []} />
       <ServicesSection services={services || []} />
       <WhyChooseUs />
       <CreativityShowcase />
-      <MiniSlider />
-      <Testimonials testimonials={testimonials || []} />
-      <FeaturedProjects projects={featuredProjects || []} />
+      <MiniSlider images={(marqueeImages || []).map(img => img.image_url)} />
+      <Testimonials testimonials={testimonials || []} features={settings?.features || []} />
+      <FeaturedProjects 
+        projects={featuredProjects || []} 
+        subheader={settings?.featured_subheader || ""}
+        title={settings?.featured_title || ""}
+        description={settings?.featured_description || ""}
+      />
       <HomeContact />
     </>
   );

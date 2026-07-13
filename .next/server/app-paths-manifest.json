@@ -1,8 +1,11 @@
 {
-  "/admin/page": "app/admin/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/projects/page": "app/projects/page.js",
   "/admin/slides/page": "app/admin/slides/page.js",
-  "/admin/projects/page": "app/admin/projects/page.js",
   "/admin/services/page": "app/admin/services/page.js",
-  "/admin/settings/page": "app/admin/settings/page.js",
-  "/admin/testimonials/page": "app/admin/testimonials/page.js"
+  "/admin/projects/page": "app/admin/projects/page.js",
+  "/admin/signature-details/page": "app/admin/signature-details/page.js",
+  "/admin/client-experience/page": "app/admin/client-experience/page.js",
+  "/admin/page": "app/admin/page.js"
 }

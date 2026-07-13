@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Plus, Trash, Edit, ArrowLeft, Check, Upload, Star } from "lucide-react";
+import { Plus, Trash, Edit, ArrowLeft, Check, Upload, Star, Save } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
 
@@ -22,6 +22,21 @@ export default async function ProjectsManagement({
     .from("projects")
     .select("*")
     .order("sort_order", { ascending: true });
+
+  // Fetch site settings (for copy headers)
+  let { data: settings } = await supabase
+    .from("site_settings")
+    .select("id, featured_subheader, featured_title, featured_description")
+    .maybeSingle();
+
+  if (!settings) {
+    const { data: newSettings } = await supabase
+      .from("site_settings")
+      .insert([{}])
+      .select("id, featured_subheader, featured_title, featured_description")
+      .single();
+    settings = newSettings;
+  }
 
   // Fetch active project and its sub-gallery if editing
   let editProject = null;
@@ -132,6 +147,26 @@ export default async function ProjectsManagement({
     redirect(`/admin/projects?action=edit&id=${projectId}`);
   };
 
+  // Server Action: Save Featured Works Section Copy
+  const saveCopy = async (formData: FormData) => {
+    "use server";
+    const supabase = createClient();
+    const settingsId = formData.get("settings_id") as string;
+    const featured_subheader = formData.get("featured_subheader") as string;
+    const featured_title = formData.get("featured_title") as string;
+    const featured_description = formData.get("featured_description") as string;
+
+    await supabase
+      .from("site_settings")
+      .update({ featured_subheader, featured_title, featured_description })
+      .eq("id", settingsId);
+
+    revalidatePath("/admin/projects");
+    revalidatePath("/projects");
+    revalidatePath("/");
+    redirect("/admin/projects");
+  };
+
   const deleteProject = async (formData: FormData) => {
     "use server";
     const id = formData.get("id") as string;
@@ -141,6 +176,7 @@ export default async function ProjectsManagement({
     revalidatePath("/admin/projects");
     revalidatePath("/projects");
     revalidatePath("/");
+    redirect("/admin/projects");
   };
 
   const toggleFeatured = async (formData: FormData) => {
@@ -153,6 +189,7 @@ export default async function ProjectsManagement({
     revalidatePath("/admin/projects");
     revalidatePath("/projects");
     revalidatePath("/");
+    redirect("/admin/projects");
   };
 
   // Form View (Add/Edit)
@@ -381,101 +418,166 @@ export default async function ProjectsManagement({
     );
   }
 
-  // Default List View
+  // Default List View (Section Copy + Projects Table)
   return (
     <div className="w-full max-w-5xl mx-auto space-y-12">
-      <div className="flex justify-between items-end">
-        <div>
-          <h1 className="text-4xl font-serif font-medium mb-2">Projects & Portfolio</h1>
-          <p className="text-muted-foreground">Manage your design showcase projects, client locations, and photo galleries.</p>
-        </div>
-        <Link href="/admin/projects?action=add" className="bg-primary hover:bg-accent text-white dark:text-neutral-900 dark:hover:text-white px-5 py-3 rounded-md text-xs font-semibold tracking-wider uppercase transition-colors flex items-center gap-2">
-          <Plus size={14} /> Add Project
-        </Link>
+      <div>
+        <h1 className="text-4xl font-serif font-medium mb-2">Projects & Portfolio</h1>
+        <p className="text-muted-foreground">Manage your design showcase projects, client locations, and photo galleries.</p>
       </div>
 
-      <div className="bg-background rounded-xl border border-muted/20 shadow-sm overflow-hidden">
-        {!projects?.length && (
-          <div className="p-16 text-center text-muted-foreground flex flex-col items-center">
-            <p className="font-light">No projects in portfolio. Click "Add Project" to create one.</p>
-          </div>
-        )}
+      {/* Featured Works Section Copy Editor */}
+      <div className="bg-background rounded-xl border border-muted/20 shadow-sm p-8 space-y-6">
+        <div>
+          <h3 className="text-lg font-serif font-medium text-accent">Featured Works Section Copy</h3>
+          <p className="text-xs text-muted-foreground">Customize the subheader, title, and description text displayed in the homepage Featured Works section.</p>
+        </div>
 
-        {projects && projects.length > 0 && (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-secondary/30 text-muted-foreground text-xs uppercase tracking-[0.2em] border-b border-muted/10">
-                  <th className="p-6 font-medium">Featured</th>
-                  <th className="p-6 font-medium">Cover</th>
-                  <th className="p-6 font-medium">Project Name</th>
-                  <th className="p-6 font-medium">Category</th>
-                  <th className="p-6 font-medium">Location</th>
-                  <th className="p-6 font-medium">Year</th>
-                  <th className="p-6 font-medium">Sort Order</th>
-                  <th className="p-6 font-medium text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-muted/10">
-                {projects.map((proj) => (
-                  <tr key={proj.id} className="hover:bg-secondary/10 transition-colors">
-                    <td className="p-6">
-                      <form action={toggleFeatured}>
-                        <input type="hidden" name="id" value={proj.id} />
-                        <input type="hidden" name="currentFeatured" value={String(proj.is_featured)} />
-                        <button type="submit" className="focus:outline-none transition-transform active:scale-90" title="Toggle featured flag">
-                          <Star 
-                            size={18} 
-                            className={proj.is_featured ? "text-accent fill-accent" : "text-muted-foreground/35 hover:text-accent"} 
-                          />
-                        </button>
-                      </form>
-                    </td>
-                    <td className="p-6">
-                      <div className="relative w-16 h-12 rounded overflow-hidden border border-muted bg-neutral-900 shrink-0">
-                        <Image 
-                          src={proj.image}
-                          alt="Cover"
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </td>
-                    <td className="p-6 text-sm font-medium text-foreground whitespace-nowrap">
-                      <div>{proj.title}</div>
-                      {!proj.is_published && <span className="text-[9px] uppercase tracking-wider bg-neutral-200 dark:bg-neutral-800 text-muted-foreground px-1.5 py-0.5 rounded font-bold">Draft</span>}
-                    </td>
-                    <td className="p-6 text-xs text-accent font-semibold tracking-wider uppercase">
-                      {proj.category}
-                    </td>
-                    <td className="p-6 text-sm text-muted-foreground">
-                      {proj.location}
-                    </td>
-                    <td className="p-6 text-sm text-muted-foreground text-center">
-                      {proj.year}
-                    </td>
-                    <td className="p-6 text-sm text-muted-foreground text-center">
-                      {proj.sort_order}
-                    </td>
-                    <td className="p-6 text-right">
-                      <div className="flex gap-2 justify-end">
-                        <Link href={`/admin/projects?action=edit&id=${proj.id}`} className="text-muted-foreground hover:text-accent p-1.5 rounded border border-muted/50 hover:border-accent transition-colors" title="Edit project">
-                          <Edit size={14} />
-                        </Link>
-                        <form action={deleteProject}>
+        <form action={saveCopy} className="space-y-6">
+          <input type="hidden" name="settings_id" value={settings?.id} />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground" htmlFor="featured_subheader">Section Subheader</label>
+              <input 
+                className="rounded-md px-4 py-3 bg-secondary/35 border border-muted/50 focus:outline-none focus:border-accent transition-colors text-sm"
+                name="featured_subheader"
+                id="featured_subheader"
+                defaultValue={settings?.featured_subheader || "Selected Portfolio"}
+                required 
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground" htmlFor="featured_title">Section Title</label>
+              <input 
+                className="rounded-md px-4 py-3 bg-secondary/35 border border-muted/50 focus:outline-none focus:border-accent transition-colors text-sm"
+                name="featured_title"
+                id="featured_title"
+                defaultValue={settings?.featured_title || "Featured Works"}
+                required 
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground" htmlFor="featured_description">Section Description</label>
+            <textarea 
+              className="rounded-md px-4 py-3 bg-secondary/35 border border-muted/50 focus:outline-none focus:border-accent transition-colors resize-none leading-relaxed text-sm"
+              name="featured_description"
+              id="featured_description"
+              rows={3}
+              defaultValue={settings?.featured_description || "Hover to explore our finest residential, commercial, and bespoke design projects."}
+              required 
+            />
+          </div>
+
+          <div className="flex justify-end pt-2">
+            <button 
+              type="submit" 
+              className="bg-primary hover:bg-accent text-white dark:text-neutral-900 dark:hover:text-white px-6 py-3 rounded-md transition-colors tracking-[0.15em] uppercase text-xs font-semibold flex items-center gap-2"
+            >
+              <Save size={14} /> Save Section Copy
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* Projects List Section */}
+      <div className="space-y-6">
+        <div className="flex justify-between items-end">
+          <div>
+            <h3 className="text-xl font-serif font-medium text-accent">Projects Catalog</h3>
+            <p className="text-xs text-muted-foreground">Add, edit, or remove showcase items in the portfolio catalog.</p>
+          </div>
+          <Link href="/admin/projects?action=add" className="bg-primary hover:bg-accent text-white dark:text-neutral-900 dark:hover:text-white px-5 py-3 rounded-md text-xs font-semibold tracking-wider uppercase transition-colors flex items-center gap-2">
+            <Plus size={14} /> Add Project
+          </Link>
+        </div>
+
+        <div className="bg-background rounded-xl border border-muted/20 shadow-sm overflow-hidden">
+          {!projects?.length && (
+            <div className="p-16 text-center text-muted-foreground flex flex-col items-center">
+              <p className="font-light">No projects in portfolio. Click "Add Project" to create one.</p>
+            </div>
+          )}
+
+          {projects && projects.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-secondary/30 text-muted-foreground text-xs uppercase tracking-[0.2em] border-b border-muted/10">
+                    <th className="p-6 font-medium">Featured</th>
+                    <th className="p-6 font-medium">Cover</th>
+                    <th className="p-6 font-medium">Project Name</th>
+                    <th className="p-6 font-medium">Category</th>
+                    <th className="p-6 font-medium">Location</th>
+                    <th className="p-6 font-medium">Year</th>
+                    <th className="p-6 font-medium">Sort Order</th>
+                    <th className="p-6 font-medium text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-muted/10">
+                  {projects.map((proj) => (
+                    <tr key={proj.id} className="hover:bg-secondary/10 transition-colors">
+                      <td className="p-6">
+                        <form action={toggleFeatured}>
                           <input type="hidden" name="id" value={proj.id} />
-                          <button type="submit" className="text-muted-foreground hover:text-red-500 p-1.5 rounded border border-muted/50 hover:border-red-500 transition-colors" title="Delete project">
-                            <Trash size={14} />
+                          <input type="hidden" name="currentFeatured" value={String(proj.is_featured)} />
+                          <button type="submit" className="focus:outline-none transition-transform active:scale-90" title="Toggle featured flag">
+                            <Star 
+                              size={18} 
+                              className={proj.is_featured ? "text-accent fill-accent" : "text-muted-foreground/35 hover:text-accent"} 
+                            />
                           </button>
                         </form>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                      </td>
+                      <td className="p-6">
+                        <div className="relative w-16 h-12 rounded overflow-hidden border border-muted bg-neutral-900 shrink-0">
+                          <Image 
+                            src={proj.image}
+                            alt="Cover"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </td>
+                      <td className="p-6 text-sm font-medium text-foreground whitespace-nowrap">
+                        <div>{proj.title}</div>
+                        {!proj.is_published && <span className="text-[9px] uppercase tracking-wider bg-neutral-200 dark:bg-neutral-800 text-muted-foreground px-1.5 py-0.5 rounded font-bold">Draft</span>}
+                      </td>
+                      <td className="p-6 text-xs text-accent font-semibold tracking-wider uppercase">
+                        {proj.category}
+                      </td>
+                      <td className="p-6 text-sm text-muted-foreground">
+                        {proj.location}
+                      </td>
+                      <td className="p-6 text-sm text-muted-foreground text-center">
+                        {proj.year}
+                      </td>
+                      <td className="p-6 text-sm text-muted-foreground text-center">
+                        {proj.sort_order}
+                      </td>
+                      <td className="p-6 text-right">
+                        <div className="flex gap-2 justify-end">
+                          <Link href={`/admin/projects?action=edit&id=${proj.id}`} className="text-muted-foreground hover:text-accent p-1.5 rounded border border-muted/50 hover:border-accent transition-colors" title="Edit project">
+                            <Edit size={14} />
+                          </Link>
+                          <form action={deleteProject}>
+                            <input type="hidden" name="id" value={proj.id} />
+                            <button type="submit" className="text-muted-foreground hover:text-red-500 p-1.5 rounded border border-muted/50 hover:border-red-500 transition-colors" title="Delete project">
+                              <Trash size={14} />
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
