@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Plus, Trash, Edit, ArrowLeft, Check, Upload, Star, Save } from "lucide-react";
+import { SubmitButton } from "./SubmitButton";
 
 export const dynamic = 'force-dynamic';
 
@@ -82,33 +83,43 @@ export default async function ProjectsManagement({
     if (coverFile && coverFile.size > 0) {
       try {
         image = await uploadImage(coverFile, "projects");
-      } catch (error) {
-        console.error("Cover upload error:", error);
+      } catch (error: any) {
+        console.error("Cover upload error:", error.message || error);
       }
     }
 
     let projectId: number;
 
-    if (id) {
-      // Edit mode
-      projectId = parseInt(id);
-      await supabase
-        .from("projects")
-        .update({ title, category, scope, location, budget, year, description, image, sort_order, is_featured, is_published })
-        .eq("id", projectId);
-    } else {
-      // Create mode
-      const { data: newProj, error } = await supabase
-        .from("projects")
-        .insert([{ title, category, scope, location, budget, year, description, image, sort_order, is_featured, is_published }])
-        .select()
-        .single();
-      
-      if (error) {
-        console.error("Insert project error:", error);
-        return;
+    try {
+      if (id) {
+        // Edit mode
+        projectId = parseInt(id);
+        const { error: updateError } = await supabase
+          .from("projects")
+          .update({ title, category, scope, location, budget, year, description, image, sort_order, is_featured, is_published })
+          .eq("id", projectId);
+        
+        if (updateError) {
+          console.error("Update project error:", updateError);
+          return;
+        }
+      } else {
+        // Create mode
+        const { data: newProj, error } = await supabase
+          .from("projects")
+          .insert([{ title, category, scope, location, budget, year, description, image, sort_order, is_featured, is_published }])
+          .select()
+          .single();
+        
+        if (error) {
+          console.error("Insert project error:", error);
+          return;
+        }
+        projectId = newProj.id;
       }
-      projectId = newProj.id;
+    } catch (dbError: any) {
+      console.error("Database operation crashed:", dbError.message || dbError);
+      return;
     }
 
     // Upload Multiple Gallery Images
@@ -118,11 +129,14 @@ export default async function ProjectsManagement({
       if (file && file.size > 0) {
         try {
           const url = await uploadImage(file, "projects");
-          await supabase
+          const { error: galleryError } = await supabase
             .from("project_images")
             .insert([{ project_id: projectId, image_url: url, sort_order: i }]);
-        } catch (error) {
-          console.error("Gallery file upload error:", error);
+          if (galleryError) {
+            console.error("Gallery database insert error:", galleryError);
+          }
+        } catch (error: any) {
+          console.error("Gallery file upload error:", error.message || error);
         }
       }
     }
@@ -130,7 +144,7 @@ export default async function ProjectsManagement({
     revalidatePath("/admin/projects");
     revalidatePath("/projects");
     revalidatePath("/");
-    redirect(`/admin/projects?action=edit&id=${projectId}`);
+    redirect("/admin/projects");
   };
 
   // Server Action: Delete single image from sub-gallery
@@ -327,12 +341,19 @@ export default async function ProjectsManagement({
             <div className="flex-1 space-y-2">
               <label className="text-xs uppercase tracking-[0.2em] text-muted-foreground block">Cover image</label>
               <input type="hidden" name="current_cover_url" value={editProject?.image || ""} />
-              <input 
-                type="file" 
-                name="cover_file" 
-                accept="image/*"
-                className="text-xs text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-accent hover:file:text-white dark:hover:file:text-neutral-900 transition-all cursor-pointer"
-              />
+              <div className="flex flex-wrap items-center gap-2">
+                <input 
+                  type="file" 
+                  name="cover_file" 
+                  accept="image/*"
+                  className="text-xs text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-accent hover:file:text-white dark:hover:file:text-neutral-900 transition-all cursor-pointer"
+                />
+                {editProject?.image && (
+                  <span className="text-[10px] text-green-600 dark:text-green-400 bg-green-500/10 px-2.5 py-1 rounded font-medium">
+                    Active: {editProject.image.split("/").pop()}
+                  </span>
+                )}
+              </div>
               <span className="text-[10px] text-muted-foreground/60 block">Will show up in portfolio catalog view. Recommended: landscape aspect ratio.</span>
             </div>
           </div>
@@ -406,12 +427,9 @@ export default async function ProjectsManagement({
           )}
 
           <div className="flex justify-end pt-4">
-            <button 
-              type="submit" 
-              className="bg-primary hover:bg-accent text-white dark:text-neutral-900 dark:hover:text-white px-8 py-3.5 rounded-md transition-colors tracking-[0.2em] uppercase text-xs font-semibold"
-            >
+            <SubmitButton pendingText="Saving Project...">
               Save Project
-            </button>
+            </SubmitButton>
           </div>
         </form>
       </div>
@@ -473,12 +491,12 @@ export default async function ProjectsManagement({
           </div>
 
           <div className="flex justify-end pt-2">
-            <button 
-              type="submit" 
-              className="bg-primary hover:bg-accent text-white dark:text-neutral-900 dark:hover:text-white px-6 py-3 rounded-md transition-colors tracking-[0.15em] uppercase text-xs font-semibold flex items-center gap-2"
+            <SubmitButton 
+              pendingText="Saving Copy..." 
+              className="bg-primary hover:bg-accent text-white dark:text-neutral-900 dark:hover:text-white px-6 py-3 rounded-md transition-colors tracking-[0.15em] uppercase text-xs font-semibold flex items-center justify-center gap-2"
             >
               <Save size={14} /> Save Section Copy
-            </button>
+            </SubmitButton>
           </div>
         </form>
       </div>

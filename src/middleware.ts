@@ -54,16 +54,20 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
 
-  // If the user is not logged in and is trying to access any admin page except the login page, redirect them to the login page.
-  if (!user && request.nextUrl.pathname.startsWith('/admin') && request.nextUrl.pathname !== '/admin/login') {
-    return NextResponse.redirect(new URL('/admin/login', request.url));
-  }
+  if (isAdminRoute) {
+    const { data: { user } } = await supabase.auth.getUser();
 
-  // If the user is logged in and is trying to access the login page, redirect them to the main admin page.
-  if (user && request.nextUrl.pathname === '/admin/login') {
-    return NextResponse.redirect(new URL('/admin', request.url));
+    // If the user is not logged in and is trying to access any admin page except the login page, redirect them to the login page.
+    if (!user && request.nextUrl.pathname !== '/admin/login') {
+      return NextResponse.redirect(new URL('/admin/login', request.url));
+    }
+
+    // If the user is logged in and is trying to access the login page, redirect them to the main admin page.
+    if (user && request.nextUrl.pathname === '/admin/login') {
+      return NextResponse.redirect(new URL('/admin', request.url));
+    }
   }
 
   return response;
