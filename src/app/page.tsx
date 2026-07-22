@@ -47,7 +47,7 @@ export default async function Home() {
       .order("sort_order", { ascending: true }),
     supabase
       .from("site_settings")
-      .select("stats, features, featured_subheader, featured_title, featured_description")
+      .select("*")
       .maybeSingle(),
     supabase
       .from("signature_details")
@@ -71,7 +71,7 @@ export default async function Home() {
         title={settings?.featured_title || ""}
         description={settings?.featured_description || ""}
       />
-      <HomeContact />
+      <HomeContact settings={settings} />
     </>
   );
 }

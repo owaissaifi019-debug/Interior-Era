@@ -122,21 +122,40 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-background/95 backdrop-blur-md shadow-lg py-6 flex flex-col items-center space-y-6 md:hidden"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 top-[70px] bg-background/98 dark:bg-neutral-950/98 backdrop-blur-2xl border-b border-border/60 shadow-2xl py-8 px-6 flex flex-col items-center justify-center space-y-5 md:hidden z-[100] overflow-hidden"
           >
-            {navLinks.map((link) => (
-              <Link
+            {/* Opaque solid backdrop layer preventing background page text bleed */}
+            <div className="absolute inset-0 bg-background dark:bg-neutral-950 opacity-98 -z-10" />
+
+            {navLinks.map((link, idx) => (
+              <motion.div
                 key={link.name}
-                href={link.href}
-                className="text-lg font-medium uppercase tracking-widest text-foreground hover:text-accent transition-colors"
-                onClick={() => setIsOpen(false)}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: idx * 0.04 }}
+                className="w-full text-center"
               >
-                {link.name}
-              </Link>
+                <Link
+                  href={link.href}
+                  className={`text-lg sm:text-xl font-serif tracking-[0.18em] uppercase block py-1.5 transition-all duration-300 ${
+                    pathname === link.href ? "text-accent font-semibold scale-105" : "text-foreground hover:text-accent"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+                <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground/70 block font-sans font-light">
+                  {link.desc}
+                </span>
+              </motion.div>
             ))}
+
+            {/* Decorative Gold Accent Bar */}
+            <div className="w-12 h-[2px] bg-accent/40 rounded-full mt-2" />
           </motion.div>
         )}
       </AnimatePresence>

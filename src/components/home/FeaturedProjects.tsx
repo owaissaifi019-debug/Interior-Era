@@ -3,8 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useCallback, useEffect } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 
 const fallbackProjects = [
   {
@@ -97,17 +98,33 @@ export default function FeaturedProjects({
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Mobile Carousel State
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi]);
+
   return (
-    <section className="py-32 bg-background overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12">
+    <section className="py-8 sm:py-16 md:py-24 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16">
           <div className="max-w-xl">
             <motion.span
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-xs font-semibold tracking-[0.3em] text-accent uppercase mb-4 block"
+              className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] text-accent uppercase mb-2 block"
             >
               {subheader || "Selected Portfolio"}
             </motion.span>
@@ -115,7 +132,7 @@ export default function FeaturedProjects({
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium mb-6 leading-[1.1]"
+              className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-medium mb-3 sm:mb-6 leading-[1.1]"
             >
               {title || "Featured Works"}
             </motion.h2>
@@ -124,9 +141,9 @@ export default function FeaturedProjects({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-muted-foreground text-lg text-balance font-light"
+              className="text-muted-foreground text-xs sm:text-base md:text-lg text-balance font-light"
             >
-              {description || "Hover to explore our finest residential, commercial, and bespoke design projects."}
+              {description || "Explore our finest residential, commercial, and bespoke design projects."}
             </motion.p>
           </div>
 
@@ -135,21 +152,99 @@ export default function FeaturedProjects({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="mt-8 md:mt-0"
+            className="mt-4 md:mt-0 flex items-center justify-between w-full md:w-auto"
           >
             <Link
               href="/projects"
-              className="pb-1 border-b border-primary hover:text-accent hover:border-accent transition-colors font-medium tracking-wide uppercase text-sm flex items-center space-x-2"
+              className="pb-1 border-b border-primary hover:text-accent hover:border-accent transition-colors font-medium tracking-wide uppercase text-xs sm:text-sm flex items-center space-x-2"
             >
               <span>View All Projects</span>
               <ArrowUpRight size={16} />
             </Link>
+
+            {/* Mobile Carousel Arrows */}
+            <div className="flex items-center space-x-2 lg:hidden">
+              <button 
+                onClick={scrollPrev}
+                className="w-8 h-8 rounded-full bg-secondary border border-border text-foreground flex items-center justify-center active:scale-95 shadow-sm"
+                aria-label="Previous project"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={scrollNext}
+                className="w-8 h-8 rounded-full bg-secondary border border-border text-foreground flex items-center justify-center active:scale-95 shadow-sm"
+                aria-label="Next project"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Asymmetric Split Layout */}
-      <div className="container mx-auto px-6 md:px-12">
+      {/* MOBILE VIEW: Touch-friendly Carousel (< lg) */}
+      <div className="lg:hidden container mx-auto px-4 sm:px-6">
+        <div className="overflow-hidden cursor-grab active:cursor-grabbing rounded-2xl" ref={emblaRef}>
+          <div className="flex -ml-4">
+            {displayProjects.map((project, index) => (
+              <div key={project.id} className="flex-[0_0_100%] min-w-0 pl-4">
+                <Link href={project.link} className="block group">
+                  <div className="relative h-[320px] sm:h-[380px] w-full rounded-2xl overflow-hidden bg-black shadow-xl">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
+                      sizes="100vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                    
+                    {/* Top Tag */}
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                      <span className="font-serif text-sm font-medium text-accent">
+                        {String(index + 1).padStart(2, "0")} / {String(displayProjects.length).padStart(2, "0")}
+                      </span>
+                      <span className="bg-black/60 backdrop-blur-md text-white border border-white/20 text-[10px] uppercase tracking-wider font-medium px-3 py-1 rounded-full">
+                        {project.scope}
+                      </span>
+                    </div>
+
+                    {/* Bottom Info */}
+                    <div className="absolute bottom-5 left-5 right-5 z-10">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-semibold block mb-1">
+                        {project.location}
+                      </span>
+                      <h3 className="font-serif text-2xl font-medium text-white group-hover:text-accent transition-colors mb-2">
+                        {project.title}
+                      </h3>
+                      <div className="inline-flex items-center space-x-1.5 text-white/80 text-xs uppercase tracking-wider font-medium group-hover:text-white transition-colors">
+                        <span>Explore Project</span>
+                        <ArrowUpRight size={14} className="text-accent" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Carousel Dots */}
+        <div className="flex justify-center items-center space-x-1.5 mt-4">
+          {displayProjects.map((_, idx) => (
+            <div 
+              key={idx}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === selectedIndex ? "w-6 bg-accent" : "w-1.5 bg-muted-foreground/30"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* DESKTOP VIEW: Asymmetric Split Layout (>= lg) */}
+      <div className="hidden lg:block container mx-auto px-6 md:px-12">
         <div className="flex flex-col lg:flex-row gap-0 lg:gap-0 border border-muted/30 rounded-2xl overflow-hidden bg-card min-h-[600px] lg:min-h-[700px]">
           {/* LEFT COLUMN: Interactive project list */}
           <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col relative z-10">
@@ -262,29 +357,8 @@ export default function FeaturedProjects({
                 <ArrowUpRight size={14} />
               </Link>
             </div>
-
-            {/* Project title overlay on image for mobile */}
-            <div className="absolute bottom-6 left-6 z-10 lg:hidden">
-              <span className="text-xs uppercase tracking-widest text-accent font-semibold">
-                {displayProjects[activeIndex].category}
-              </span>
-              <h3 className="text-white font-serif text-2xl font-medium mt-1 drop-shadow-lg">
-                {displayProjects[activeIndex].title}
-              </h3>
-            </div>
           </div>
         </div>
-      </div>
-
-      {/* Mobile - View All Link */}
-      <div className="container mx-auto px-6 md:hidden mt-8">
-        <Link
-          href="/projects"
-          className="inline-flex pb-1 border-b border-primary hover:text-accent hover:border-accent transition-colors font-medium tracking-wide uppercase text-sm items-center space-x-2"
-        >
-          <span>View All Projects</span>
-          <ArrowUpRight size={16} />
-        </Link>
       </div>
     </section>
   );

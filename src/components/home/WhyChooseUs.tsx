@@ -12,13 +12,13 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-32 bg-background relative">
+    <section className="py-12 sm:py-20 md:py-32 bg-background relative">
       <div className="container mx-auto px-6 md:px-20 lg:px-32">
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           <div className="lg:w-1/3">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="sticky top-32"

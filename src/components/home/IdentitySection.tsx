@@ -41,7 +41,7 @@ export default function IdentitySection() {
           whileInView={{ opacity: 1, scaleY: 1 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-px h-24 bg-accent/40 mt-16 origin-top"
+          className="w-px h-10 md:h-20 bg-accent/40 mt-6 md:mt-12 origin-top"
         />
       </div>
     </section>

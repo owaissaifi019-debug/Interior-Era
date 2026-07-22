@@ -39,9 +39,9 @@ export default function ServicesSection({ services }: { services?: any[] }) {
   }, [Autoplay({ delay: 3000, stopOnInteraction: false })]);
 
   return (
-    <section className="py-32 bg-secondary/30 overflow-hidden">
+    <section className="py-12 sm:py-20 md:py-32 bg-secondary/30 overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="flex flex-col items-center text-center mb-8 sm:mb-12 md:mb-16">
           <div className="max-w-3xl flex flex-col items-center">
             <span className="text-xs font-medium tracking-[0.3em] text-accent uppercase mb-4 block">Our Expertise</span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium mb-6">Comprehensive Design Services</h2>

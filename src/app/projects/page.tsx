@@ -377,15 +377,15 @@ function ProjectsContent() {
   }, [selectedProject]);
 
   return (
-    <main className="min-h-screen bg-background pt-24 md:pt-32">
+    <main className="min-h-screen bg-background pt-24 sm:pt-32 overflow-x-hidden font-sans">
       {/* Header Section */}
-      <section className="px-6 md:px-12 lg:px-20 mb-16 md:mb-24">
+      <section className="px-4 sm:px-6 md:px-12 lg:px-20 mb-8 sm:mb-16">
         <div className="max-w-4xl">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-xs uppercase tracking-[0.3em] text-accent font-semibold mb-6 block"
+            className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-accent font-semibold mb-3 sm:mb-4 block"
           >
             Our Portfolio
           </motion.span>
@@ -393,7 +393,7 @@ function ProjectsContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-tight mb-8 text-foreground"
+            className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-tight mb-4 sm:mb-6 text-foreground"
           >
             Selected Works
           </motion.h1>
@@ -401,16 +401,16 @@ function ProjectsContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-muted-foreground text-lg md:text-xl leading-relaxed font-light"
+            className="text-muted-foreground text-xs sm:text-base md:text-xl leading-relaxed font-light max-w-2xl"
           >
-            A curated showcase of our design excellence spanning multiple disciplines. Click any card to explore the full high-resolution gallery, project layouts, and specific details.
+            A curated showcase of our design excellence spanning multiple disciplines. Tap any card to explore high-resolution galleries, layouts, and project details.
           </motion.p>
         </div>
       </section>
 
-      {/* Categories Filter Grid */}
-      <section className="px-6 md:px-12 lg:px-20 mb-16">
-        <div className="flex flex-wrap gap-3 md:gap-4 items-center">
+      {/* Horizontal Scrollable Category Filter Bar */}
+      <section className="px-4 sm:px-6 md:px-12 lg:px-20 mb-8 sm:mb-12">
+        <div className="flex items-center space-x-2.5 sm:space-x-4 overflow-x-auto no-scrollbar py-2 -mx-4 px-4 sm:mx-0 sm:px-0">
           {categories.map((cat, index) => {
             const count = getCategoryCount(cat.id);
             const isActive = activeCategory === cat.id;
@@ -419,17 +419,17 @@ function ProjectsContent() {
                 key={cat.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.04 }}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`group text-xs uppercase tracking-widest font-semibold px-6 py-3.5 rounded-full border transition-all duration-300 flex items-center space-x-2.5 ${
+                className={`shrink-0 text-[10px] sm:text-xs uppercase tracking-widest font-semibold px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-full border transition-all duration-300 flex items-center space-x-2 ${
                   isActive
-                    ? "bg-foreground text-background border-foreground shadow-lg shadow-foreground/10"
-                    : "bg-transparent text-foreground/75 border-muted hover:border-foreground hover:text-foreground"
+                    ? "bg-accent text-accent-foreground border-accent shadow-md scale-105"
+                    : "bg-secondary/40 text-foreground/75 border-border/60 hover:border-accent hover:text-foreground"
                 }`}
               >
                 <span>{cat.label}</span>
-                <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans font-medium transition-colors ${
-                  isActive ? "bg-accent text-white" : "bg-secondary text-muted-foreground group-hover:bg-foreground group-hover:text-background"
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-sans font-medium transition-colors ${
+                  isActive ? "bg-black/20 text-accent-foreground" : "bg-muted text-muted-foreground"
                 }`}>
                   {count}
                 </span>
@@ -440,8 +440,8 @@ function ProjectsContent() {
       </section>
 
       {/* Projects Grid */}
-      <section className="px-6 md:px-12 lg:px-20 pb-32 min-h-[50vh]">
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+      <section className="px-4 sm:px-6 md:px-12 lg:px-20 pb-20 sm:pb-32 min-h-[50vh]">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
@@ -450,46 +450,46 @@ function ProjectsContent() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4 }}
                 onClick={() => {
                   setSelectedProject(project);
                   setActiveImageIndex(0);
                 }}
-                className="group cursor-pointer flex flex-col bg-card border border-muted/30 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:border-accent/40"
+                className="group cursor-pointer flex flex-col bg-card border border-border/60 dark:border-neutral-800/80 rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:border-accent/50"
               >
                 {/* Image Viewport */}
-                <div className="relative h-[380px] md:h-[420px] w-full overflow-hidden shrink-0 bg-secondary/20">
+                <div className="relative h-[250px] sm:h-[340px] md:h-[400px] w-full overflow-hidden shrink-0 bg-secondary/20">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-1000 ease-in-out group-hover:scale-105 group-hover:brightness-95"
+                    className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105 group-hover:brightness-95"
                     sizes="(max-w-768px) 100vw, (max-w-1200px) 50vw, 33vw"
                   />
                   {/* Category Tag on Card */}
-                  <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-md border border-muted/30 px-4 py-1.5 rounded-full">
-                    <span className="text-[10px] uppercase tracking-widest font-semibold text-accent">
+                  <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-md border border-white/20 px-3 py-1 rounded-full">
+                    <span className="text-[9px] sm:text-[10px] uppercase tracking-widest font-semibold text-accent">
                       {project.category}
                     </span>
                   </div>
                 </div>
 
                 {/* Card Meta Content */}
-                <div className="p-6 md:p-8 flex flex-col flex-1">
-                  <span className="text-[10px] md:text-xs uppercase tracking-[0.15em] text-accent font-semibold mb-2 block">
+                <div className="p-4 sm:p-6 md:p-8 flex flex-col flex-1">
+                  <span className="text-[10px] sm:text-xs uppercase tracking-[0.15em] text-accent font-semibold mb-1.5 block">
                     {project.scope}
                   </span>
-                  <h3 className="font-serif text-2xl md:text-3xl font-medium mb-3 group-hover:text-accent transition-colors">
+                  <h3 className="font-serif text-xl sm:text-2xl md:text-3xl font-medium mb-3 group-hover:text-accent transition-colors text-foreground">
                     {project.title}
                   </h3>
-                  <div className="flex justify-between items-center mt-auto pt-4 border-t border-muted/20 text-muted-foreground">
-                    <span className="text-xs uppercase tracking-[0.1em] flex items-center">
-                      <MapPin size={12} className="mr-1.5 text-accent" />
-                      {project.location}
+                  <div className="flex justify-between items-center mt-auto pt-3 border-t border-border/40 text-muted-foreground text-[10px] sm:text-xs">
+                    <span className="uppercase tracking-[0.08em] flex items-center truncate max-w-[140px] sm:max-w-none">
+                      <MapPin size={12} className="mr-1 text-accent shrink-0" />
+                      <span className="truncate">{project.location}</span>
                     </span>
-                    <span className="text-xs uppercase font-medium text-foreground tracking-wide group-hover:text-accent transition-colors flex items-center">
+                    <span className="uppercase font-semibold text-accent flex items-center shrink-0">
                       View Gallery
-                      <ArrowRight size={14} className="ml-1.5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                      <ArrowRight size={12} className="ml-1 group-hover:translate-x-1 transition-transform duration-300" />
                     </span>
                   </div>
                 </div>
@@ -506,67 +506,68 @@ function ProjectsContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-xl p-4 md:p-8"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-xl p-2 sm:p-4 md:p-8"
           >
             {/* Modal Container */}
             <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="relative w-full max-w-7xl h-[90vh] md:h-[85vh] bg-background border border-muted/20 rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row"
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="relative w-full max-w-7xl h-[92vh] md:h-[85vh] bg-background border border-border/60 dark:border-neutral-800 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row"
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-5 right-5 z-[110] bg-background/80 dark:bg-neutral-900/80 backdrop-blur-md border border-muted/30 text-foreground p-3 rounded-full hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 shadow-lg active:scale-95"
+                className="absolute top-3 right-3 sm:top-5 sm:right-5 z-[110] bg-black/70 backdrop-blur-md border border-white/20 text-white p-2.5 sm:p-3 rounded-full hover:bg-accent hover:border-accent transition-all duration-300 shadow-lg active:scale-95"
+                aria-label="Close modal"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
 
-              {/* Left Column: Image Viewer (65% width) */}
-              <div className="w-full lg:w-2/3 h-1/2 lg:h-full bg-black relative flex flex-col shrink-0">
+              {/* Left Column: Image Viewer */}
+              <div className="w-full lg:w-2/3 h-[50%] lg:h-full bg-black relative flex flex-col shrink-0">
                 {/* Main Image Slider Container */}
                 <div className="flex-1 relative w-full overflow-hidden flex items-center justify-center">
                   <Image
                     src={selectedProject.images[activeImageIndex]}
                     alt={`${selectedProject.title} Detail ${activeImageIndex + 1}`}
                     fill
-                    className="object-contain p-4 md:p-8"
+                    className="object-contain p-2 sm:p-4 md:p-8"
                     priority
                   />
 
                   {/* Left Navigation Arrow */}
                   <button
                     onClick={() => setActiveImageIndex(prev => (prev - 1 + selectedProject.images.length) % selectedProject.images.length)}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/40 hover:bg-accent border border-white/20 text-white flex items-center justify-center transition-colors"
+                    className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-accent border border-white/20 text-white flex items-center justify-center transition-colors"
                   >
-                    <ChevronLeft size={24} />
+                    <ChevronLeft size={20} />
                   </button>
 
                   {/* Right Navigation Arrow */}
                   <button
                     onClick={() => setActiveImageIndex(prev => (prev + 1) % selectedProject.images.length)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-black/40 hover:bg-accent border border-white/20 text-white flex items-center justify-center transition-colors"
+                    className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-accent border border-white/20 text-white flex items-center justify-center transition-colors"
                   >
-                    <ChevronRight size={24} />
+                    <ChevronRight size={20} />
                   </button>
 
                   {/* Image Counter Badge */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 border border-white/10 px-4 py-1.5 rounded-full">
-                    <span className="text-xs text-white tracking-widest uppercase font-semibold">
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/70 border border-white/10 px-3 py-1 rounded-full">
+                    <span className="text-[10px] sm:text-xs text-white tracking-widest uppercase font-semibold">
                       {activeImageIndex + 1} / {selectedProject.images.length}
                     </span>
                   </div>
                 </div>
 
                 {/* Thumbnails Navigation Bar */}
-                <div className="h-20 shrink-0 bg-neutral-950/80 border-t border-muted/10 p-2 overflow-x-auto flex justify-center items-center gap-2 select-none scrollbar-thin">
+                <div className="h-16 sm:h-20 shrink-0 bg-neutral-950/90 border-t border-white/10 p-2 overflow-x-auto flex justify-center items-center gap-2 select-none no-scrollbar">
                   {selectedProject.images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-16 h-12 rounded-lg overflow-hidden shrink-0 border-2 transition-all duration-300 ${
+                      className={`relative w-14 sm:w-16 h-10 sm:h-12 rounded-lg overflow-hidden shrink-0 border-2 transition-all duration-300 ${
                         activeImageIndex === idx ? "border-accent scale-105" : "border-transparent opacity-50 hover:opacity-100"
                       }`}
                     >
@@ -581,72 +582,70 @@ function ProjectsContent() {
                 </div>
               </div>
 
-              {/* Right Column: Project Meta Details (35% width) */}
-              <div className="w-full lg:w-1/3 h-1/2 lg:h-full p-8 md:p-12 overflow-y-auto flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-muted/20">
-                <div className="space-y-6">
+              {/* Right Column: Project Meta Details */}
+              <div className="w-full lg:w-1/3 h-[50%] lg:h-full p-5 sm:p-8 md:p-12 overflow-y-auto flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-border/60">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Category Identifier */}
                   <div>
-                    <span className="text-[10px] md:text-xs uppercase tracking-[0.25em] text-accent font-bold">
+                    <span className="text-[9px] sm:text-xs uppercase tracking-[0.25em] text-accent font-bold">
                       {selectedProject.scope}
                     </span>
-                    <h2 className="font-serif text-3xl md:text-4xl font-medium mt-2 text-foreground leading-tight">
+                    <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-medium mt-1 text-foreground leading-tight">
                       {selectedProject.title}
                     </h2>
                   </div>
 
-                  <hr className="border-muted/30" />
+                  <hr className="border-border/50" />
 
                   {/* Meta Specs Grid */}
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="flex items-center space-x-3.5">
-                      <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                        <MapPin size={16} />
+                  <div className="grid grid-cols-2 gap-4 sm:gap-6">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                        <MapPin size={14} />
                       </div>
                       <div>
-                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">Location</span>
-                        <span className="text-xs md:text-sm font-semibold text-foreground">{selectedProject.location}</span>
+                        <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider block">Location</span>
+                        <span className="text-xs sm:text-sm font-semibold text-foreground">{selectedProject.location}</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3.5">
-                      <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                        <Briefcase size={16} />
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                        <Briefcase size={14} />
                       </div>
                       <div>
-                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">Scope</span>
-                        <span className="text-xs md:text-sm font-semibold text-foreground">{selectedProject.category}</span>
+                        <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider block">Scope</span>
+                        <span className="text-xs sm:text-sm font-semibold text-foreground">{selectedProject.category}</span>
                       </div>
                     </div>
 
-
-
-                    <div className="flex items-center space-x-3.5">
-                      <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
-                        <Calendar size={16} />
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent shrink-0">
+                        <Calendar size={14} />
                       </div>
                       <div>
-                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider block">Year</span>
-                        <span className="text-xs md:text-sm font-semibold text-foreground">{selectedProject.year}</span>
+                        <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider block">Year</span>
+                        <span className="text-xs sm:text-sm font-semibold text-foreground">{selectedProject.year}</span>
                       </div>
                     </div>
                   </div>
 
-                  <hr className="border-muted/30" />
+                  <hr className="border-border/50" />
 
                   {/* Project Long Description */}
                   <div>
-                    <h4 className="text-xs uppercase tracking-wider font-semibold text-foreground mb-2">Project Vision</h4>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                    <h4 className="text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-foreground mb-1.5">Project Vision</h4>
+                    <p className="text-xs sm:text-sm text-muted-foreground font-light leading-relaxed">
                       {selectedProject.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Inquire CTA Button */}
-                <div className="pt-8 border-t border-muted/20 mt-8">
+                <div className="pt-6 border-t border-border/50 mt-6">
                   <Link
                     href={`/contact?project=${encodeURIComponent(selectedProject.title)}`}
-                    className="w-full bg-primary hover:bg-accent text-white py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-colors uppercase tracking-widest text-xs font-semibold shadow-lg shadow-black/10"
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground py-3.5 sm:py-4 px-5 rounded-xl flex items-center justify-center space-x-2 transition-colors uppercase tracking-widest text-xs font-semibold shadow-lg"
                   >
                     <span>Inquire About This Space</span>
                     <ArrowRight size={14} />
@@ -659,15 +658,15 @@ function ProjectsContent() {
       </AnimatePresence>
 
       {/* CTA Section */}
-      <section className="py-32 bg-primary text-primary-foreground text-center px-6">
+      <section className="py-16 sm:py-24 md:py-32 bg-primary text-primary-foreground text-center px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif text-4xl md:text-6xl font-medium mb-8">Have a project in mind?</h2>
-          <p className="text-primary-foreground/70 text-lg md:text-xl font-light mb-12">
+          <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-medium mb-4 sm:mb-6">Have a project in mind?</h2>
+          <p className="text-primary-foreground/75 text-xs sm:text-lg md:text-xl font-light mb-8 sm:mb-10 max-w-xl mx-auto">
             Let our experts guide you through a seamless, luxury design journey.
           </p>
-          <Link href="/contact" className="inline-flex items-center space-x-3 bg-white text-black px-8 py-4 rounded-sm hover:bg-accent hover:text-white transition-colors duration-300">
-            <span className="text-sm font-medium tracking-[0.2em] uppercase">Get In Touch</span>
-            <ArrowRight size={18} />
+          <Link href="/contact" className="inline-flex items-center space-x-3 bg-accent text-accent-foreground px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl hover:bg-accent/90 transition-colors duration-300 shadow-xl text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase">
+            <span>Get In Touch</span>
+            <ArrowRight size={16} />
           </Link>
         </div>
       </section>
