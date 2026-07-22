@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import CountUp from "react-countup";
-import { ArrowRight, Sparkles, Building2, Users, Palette, Award } from "lucide-react";
+import { ArrowRight, Sparkles, Building2, Users, Palette, Award, FileText, Calculator, Compass, Layers, Hammer, CheckCircle2, Key } from "lucide-react";
 
 interface StatItem {
   value: number;
@@ -30,6 +30,57 @@ const team = [
     role: "Structural Engineer",
     image: "/img/project-1.jpeg",
     bio: "Ensuring every grand design is backed by rigorous engineering, ultimate safety, and flawless execution."
+  }
+];
+
+const processSteps = [
+  {
+    number: "01",
+    title: "Client Brief",
+    icon: FileText,
+    description: "Understanding your vision, lifestyle requirements, aesthetic preferences, and project goals."
+  },
+  {
+    number: "02",
+    title: "Look and Feel",
+    icon: Palette,
+    description: "Formulating mood boards, color palettes, and structural design directions for your space."
+  },
+  {
+    number: "03",
+    title: "Cost Estimation",
+    icon: Calculator,
+    description: "Transparent financial planning, itemized budgeting, and material specification breakdown."
+  },
+  {
+    number: "04",
+    title: "Concept Development",
+    icon: Compass,
+    description: "Creating 3D photorealistic renderings, spatial layouts, and architectural blueprints."
+  },
+  {
+    number: "05",
+    title: "Material Selection",
+    icon: Layers,
+    description: "Handpicking luxury stones, fabrics, premium woods, and bespoke hardware finishes."
+  },
+  {
+    number: "06",
+    title: "Execution",
+    icon: Hammer,
+    description: "Precision craftsmanship, structural engineering, and turnkey site construction."
+  },
+  {
+    number: "07",
+    title: "Quality Check",
+    icon: CheckCircle2,
+    description: "Rigorous multi-stage inspections ensuring absolute structural and finish perfection."
+  },
+  {
+    number: "08",
+    title: "Handover",
+    icon: Key,
+    description: "Delivering your fully styled, turnkey dream space ready for elegant living."
   }
 ];
 
@@ -153,7 +204,67 @@ export default function AboutClient({ stats }: { stats: StatItem[] }) {
         </div>
       </section>
 
-      {/* 3. THE VISIONARIES (LEADERSHIP) SECTION */}
+      {/* 3. OUR PROCESS SECTION */}
+      <section className="py-16 sm:py-24 md:py-32 relative bg-background border-t border-border/30 overflow-hidden">
+        {/* Background Ambient Glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 blur-[140px] pointer-events-none rounded-full" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-accent font-semibold mb-3 block">
+              Workflow & Methodology
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-medium text-foreground mb-4">
+              Our Process
+            </h2>
+            <div className="w-16 h-[2px] bg-accent/60 mx-auto rounded-full mb-6" />
+            <p className="text-muted-foreground text-xs sm:text-base md:text-lg font-light leading-relaxed">
+              We designed a meticulous 8-step process based on years of architectural & interior experience for our valuable clients.
+            </p>
+          </div>
+
+          {/* Process Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
+            {processSteps.map((step, index) => {
+              const IconComponent = step.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.6, delay: index * 0.08 }}
+                  className="group relative bg-secondary/30 dark:bg-neutral-900/50 backdrop-blur-md border border-border/60 dark:border-neutral-800/60 rounded-2xl p-6 sm:p-7 hover:border-accent/50 hover:bg-secondary/60 dark:hover:bg-neutral-900/90 transition-all duration-500 flex flex-col justify-between"
+                >
+                  {/* Top Bar: Step Number & Icon */}
+                  <div>
+                    <div className="flex items-center justify-between mb-6">
+                      <span className="font-serif text-3xl sm:text-4xl font-semibold text-accent/40 group-hover:text-accent transition-colors duration-500">
+                        {step.number}
+                      </span>
+                      <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground transition-all duration-500">
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                    </div>
+
+                    <h3 className="font-serif text-lg sm:text-xl font-medium text-foreground mb-2 group-hover:text-accent transition-colors duration-300">
+                      {step.title}
+                    </h3>
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed font-light">
+                      {step.description}
+                    </p>
+                  </div>
+
+                  {/* Subtle Bottom Accent Line */}
+                  <div className="w-0 group-hover:w-full h-[2px] bg-accent/70 transition-all duration-500 rounded-full mt-6" />
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. THE VISIONARIES (LEADERSHIP) SECTION */}
       <section className="py-12 sm:py-20 md:py-28 bg-secondary/30 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 relative z-10">
           <div className="text-center mb-10 sm:mb-16">
