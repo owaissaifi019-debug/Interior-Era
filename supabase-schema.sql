@@ -501,5 +501,36 @@ FOR UPDATE TO authenticated WITH CHECK (bucket_id = 'interior-era-media');
 CREATE POLICY "Allow authenticated deletes" ON storage.objects
 FOR DELETE TO authenticated USING (bucket_id = 'interior-era-media');
 
+-- =========================================================================
+-- 13. Visionaries Table (Leadership)
+-- =========================================================================
+CREATE TABLE IF NOT EXISTS public.visionaries (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL,
+    bio TEXT NOT NULL,
+    image_url TEXT NOT NULL,
+    is_archived BOOLEAN DEFAULT false,
+    sort_order INT DEFAULT 0
+);
 
+-- Seed initial visionaries
+INSERT INTO public.visionaries (name, role, bio, image_url, sort_order, is_archived)
+SELECT 'Mohd Shahid', 'Lead Interior Designer', 'Bringing spaces to life with an unmatched eye for aesthetics, materiality, and bespoke furniture curation.', '/img/project-3.jpeg', 1, false
+WHERE NOT EXISTS (SELECT 1 FROM public.visionaries WHERE name='Mohd Shahid');
 
+INSERT INTO public.visionaries (name, role, bio, image_url, sort_order, is_archived)
+SELECT 'Ar. Mohd Anas', 'Chief Architect', 'The visionary behind our architectural marvels, blending contemporary luxury with timeless structural integrity.', '/img/project-2.jpeg', 2, false
+WHERE NOT EXISTS (SELECT 1 FROM public.visionaries WHERE name='Ar. Mohd Anas');
+
+INSERT INTO public.visionaries (name, role, bio, image_url, sort_order, is_archived)
+SELECT 'Er. Owais Qarni', 'Structural Engineer', 'Ensuring every grand design is backed by rigorous engineering, ultimate safety, and flawless execution.', '/img/project-1.jpeg', 3, false
+WHERE NOT EXISTS (SELECT 1 FROM public.visionaries WHERE name='Er. Owais Qarni');
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE public.visionaries ENABLE ROW LEVEL SECURITY;
+
+-- Policies
+CREATE POLICY "Allow anonymous read visionaries" ON public.visionaries FOR SELECT TO anon USING (true);
+CREATE POLICY "Allow authenticated write visionaries" ON public.visionaries FOR ALL TO authenticated USING (true);

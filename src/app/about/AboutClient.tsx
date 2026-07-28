@@ -112,8 +112,22 @@ function StatIcon({ label }: { label: string }) {
   return <Award className={iconClass} />;
 }
 
-export default function AboutClient({ stats }: { stats: StatItem[] }) {
+interface VisionaryMember {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+}
+
+export default function AboutClient({
+  stats,
+  visionaries,
+}: {
+  stats: StatItem[];
+  visionaries?: VisionaryMember[] | null;
+}) {
   const [activeStepIndex, setActiveStepIndex] = useState<number | null>(null);
+  const activeTeam = visionaries && visionaries.length > 0 ? visionaries : team;
 
   return (
     <main className="min-h-screen bg-background overflow-x-hidden w-full font-sans">
@@ -404,7 +418,7 @@ export default function AboutClient({ stats }: { stats: StatItem[] }) {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-            {team.map((member, index) => (
+            {activeTeam.map((member, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 30 }}

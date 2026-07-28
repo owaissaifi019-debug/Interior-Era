@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { LogOut, Users, Settings, Image as ImageIcon, Briefcase, Compass, MessageSquare, Grid, Menu, X } from "lucide-react";
+import { LogOut, Users, Settings, Image as ImageIcon, Briefcase, Compass, MessageSquare, Grid, Menu, X, UserCheck } from "lucide-react";
 
 export default function Sidebar({ signOutAction }: { signOutAction: () => void }) {
   const pathname = usePathname();
@@ -20,6 +20,7 @@ export default function Sidebar({ signOutAction }: { signOutAction: () => void }
     { name: "Signature Details", href: "/admin/signature-details", icon: Grid },
     { name: "Projects", href: "/admin/projects", icon: Briefcase },
     { name: "Services", href: "/admin/services", icon: Compass },
+    { name: "Visionaries", href: "/admin/visionaries", icon: UserCheck },
     { name: "Client Experience", href: "/admin/client-experience", icon: MessageSquare },
     { name: "Settings", href: "/admin/settings", icon: Settings },
   ];
