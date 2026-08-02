@@ -60,7 +60,7 @@ export default function VisionaryForm({
 
     try {
       const res = await saveVisionaryAction(formData);
-      if (res.success) {
+      if (res && res.success) {
         setNotification({
           type: "success",
           message: isEdit
@@ -74,13 +74,13 @@ export default function VisionaryForm({
       } else {
         setNotification({
           type: "error",
-          message: res.error || "Failed to update visionary.",
+          message: res?.error || "Failed to update visionary.",
         });
       }
     } catch (err: any) {
       setNotification({
         type: "error",
-        message: err.message || "An unexpected error occurred while saving.",
+        message: err?.message || "An unexpected error occurred while saving.",
       });
     } finally {
       setIsSaving(false);

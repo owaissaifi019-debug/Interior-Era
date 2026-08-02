@@ -56,7 +56,7 @@ export default function SettingsForm({ settings }: { settings: Settings | null }
     const formData = new FormData(e.currentTarget);
     try {
       const result = await updateSettingsAction(formData);
-      if (result.success) {
+      if (result && result.success) {
         setNotification({
           type: "success",
           message: "Settings saved successfully!"
@@ -64,13 +64,13 @@ export default function SettingsForm({ settings }: { settings: Settings | null }
       } else {
         setNotification({
           type: "error",
-          message: result.error || "Failed to save settings."
+          message: result?.error || "Failed to save settings."
         });
       }
     } catch (err: any) {
       setNotification({
         type: "error",
-        message: err.message || "An unexpected error occurred."
+        message: err?.message || "An unexpected error occurred."
       });
     } finally {
       setIsSaving(false);

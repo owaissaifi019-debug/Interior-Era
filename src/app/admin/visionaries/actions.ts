@@ -53,15 +53,19 @@ export async function saveVisionaryAction(formData: FormData) {
       }
     }
 
-    revalidatePath("/admin/visionaries");
-    revalidatePath("/about");
-    revalidatePath("/");
+    try {
+      revalidatePath("/admin/visionaries");
+      revalidatePath("/about");
+      revalidatePath("/");
+    } catch (revalErr) {
+      console.warn("Revalidation error (non-fatal):", revalErr);
+    }
     return { success: true };
   } catch (err: any) {
     console.error("saveVisionaryAction server exception:", err);
     return {
       success: false,
-      error: err.message || "An unexpected error occurred while saving.",
+      error: err?.message || "An unexpected error occurred while saving.",
     };
   }
 }
